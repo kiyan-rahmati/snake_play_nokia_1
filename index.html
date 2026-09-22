@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nokia Snake</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #050505;
+        font-family: Arial, sans-serif;
+        color: #fff;
+    }
+
+    /* PHONE */
+
+    .phone {
+        width: 330px;
+        min-height: 650px;
+        padding: 22px 18px 25px;
+        border-radius: 42px;
+        background:
+            linear-gradient(145deg, #252525, #080808);
+        border: 3px solid #555;
+        box-shadow:
+            inset 0 0 0 2px #111,
+            0 25px 70px rgba(0, 0, 0, .9);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* NOKIA */
+
+    .brand {
+        font-size: 25px;
+        font-weight: 900;
+        letter-spacing: 3px;
+        margin: 3px 0 13px;
+        color: #ddd;
+        text-shadow: 0 1px 2px #000;
+    }
+
+    /* SPEAKER */
+
+    .speaker {
+        width: 62px;
+        height: 8px;
+        border-radius: 10px;
+        background: #000;
+        margin-bottom: 12px;
+        box-shadow: inset 0 1px 2px #555;
+    }
+
+    /* SCREEN */
+
+    .screen-frame {
+        width: 100%;
+        padding: 12px;
+        border-radius: 17px;
+        background: #050505;
+        border: 2px solid #222;
+        box-shadow:
+            inset 0 0 12px #000,
+            0 2px 0 #555;
+    }
+
+    .screen {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1 / .83;
+        background: #d7d7d7;
+        border: 4px solid #111;
+        overflow: hidden;
+        image-rendering: pixelated;
+    }
+
+    .screen-top {
+        height: 28px;
+        padding: 5px 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #111;
+        background: #d7d7d7;
+        color: #111;
+        font-family: monospace;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    canvas {
+        width: 100%;
+        height: calc(100% - 28px);
+        display: block;
+        image-rendering: pixelated;
+        background: #d7d7d7;
+    }
+
+    /* MESSAGE */
+
+    .message {
+        position: absolute;
+        inset: 28px 0 0;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: rgba(215, 215, 215, .9);
+        color: #111;
+        font-family: monospace;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .message h2 {
+        font-size: 21px;
+        margin-bottom: 7px;
+    }
+
+    .message p {
+        font-size: 11px;
+    }
+
+    /* NAVIGATION */
+
+    .navigation {
+        width: 100%;
+        margin-top: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nav-left,
+    .nav-right {
+        width: 68px;
+        height: 58px;
+        border-radius: 20px;
+        background: linear-gradient(#222, #090909);
+        border: 2px solid #555;
+        color: #ddd;
+        font-size: 22px;
+        box-shadow:
+            inset 0 2px 3px #444,
+            0 4px 5px #000;
+        cursor: pointer;
+    }
+
+    .nav-center {
+        width: 76px;
+        height: 65px;
+        margin: 0 7px;
+        border-radius: 23px;
+        background: #111;
+        border: 4px solid #555;
+        color: #ddd;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow:
+            inset 0 2px 5px #000,
+            0 4px 5px #000;
+        cursor: pointer;
+    }
+
+    .nav-left:active,
+    .nav-right:active,
+    .nav-center:active,
+    .key:active {
+        transform: translateY(3px);
+        box-shadow: inset 0 2px 5px #000;
+    }
+
+    /* KEYPAD */
+
+    .keypad {
+        margin-top: 22px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 9px;
+    }
+
+    .key {
+        height: 48px;
+        border-radius: 17px;
+        border: 2px solid #444;
+        background: linear-gradient(#242424, #0b0b0b);
+        color: #eee;
+        font-family: Arial, sans-serif;
+        cursor: pointer;
+        box-shadow:
+            inset 0 2px 3px #444,
+            0 3px 4px #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .number {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .letters {
+        font-size: 7px;
+        opacity: .7;
+        margin-top: 2px;
+    }
+
+    /* MOBILE */
+
+    @media (max-height: 720px) {
+        .phone {
+            transform: scale(.88);
+        }
+    }
+
+    @media (max-width: 380px) {
+        .phone {
+            width: 310px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+    <div class="speaker"></div>
+
+    <div class="brand">NOKIA</div>
+
+    <div class="screen-frame">
+
+        <div class="screen">
+
+            <div class="screen-top">
+                <span>SCORE: <span id="score">0</span></span>
+                <span>HI: <span id="highScore">0</span></span>
+            </div>
+
+            <canvas id="gameCanvas"></canvas>
+
+            <div class="message" id="message">
+                <h2 id="messageTitle">GAME OVER</h2>
+                <p id="messageText">PRESS 5 TO RESTART</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="navigation">
+
+        <button class="nav-left" data-direction="left">
+            ◀
+        </button>
+
+        <button class="nav-center" id="pauseButton">
+            OK
+        </button>
+
+        <button class="nav-right" data-direction="right">
+            ▶
+        </button>
+
+    </div>
+
+    <!-- KEYPAD -->
+
+    <div class="keypad">
+
+        <button class="key" data-key="1">
+            <span class="number">1</span>
+        </button>
+
+        <button class="key" data-key="2">
+            <span class="number">2</span>
+            <span class="letters">ABC</span>
+        </button>
+
+        <button class="key" data-key="3">
+            <span class="number">3</span>
+            <span class="letters">DEF</span>
+        </button>
+
+        <button class="key" data-key="4">
+            <span class="number">4</span>
+            <span class="letters">GHI</span>
+        </button>
+
+        <button class="key" data-key="5">
+            <span class="number">5</span>
+            <span class="letters">JKL</span>
+        </button>
+
+        <button class="key" data-key="6">
+            <span class="number">6</span>
+            <span class="letters">MNO</span>
+        </button>
+
+        <button class="key" data-key="7">
+            <span class="number">7</span>
+            <span class="letters">PQRS</span>
+        </button>
+
+        <button class="key" data-key="8">
+            <span class="number">8</span>
+            <span class="letters">TUV</span>
+        </button>
+
+        <button class="key" data-key="9">
+            <span class="number">9</span>
+            <span class="letters">WXYZ</span>
+        </button>
+
+        <button class="key" data-key="*">
+            <span class="number">*</span>
+        </button>
+
+        <button class="key" data-key="0">
+            <span class="number">0</span>
+        </button>
+
+        <button class="key" data-key="#">
+            <span class="number">#</span>
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+const scoreElement = document.getElementById("score");
+const highScoreElement = document.getElementById("highScore");
+
+const message = document.getElementById("message");
+const messageTitle = document.getElementById("messageTitle");
+const messageText = document.getElementById("messageText");
+
+const pauseButton = document.getElementById("pauseButton");
+
+
+/* =========================
+   GAME SETTINGS
+========================= */
+
+const COLS = 20;
+const ROWS = 15;
+
+let cellWidth;
+let cellHeight;
+
+let snake;
+let food;
+
+let direction;
+let nextDirection;
+
+let score = 0;
+
+let highScore =
+    Number(localStorage.getItem("nokiaSnakeHighScore")) || 0;
+
+let gameRunning = true;
+let paused = false;
+
+let gameLoop;
+
+
+/* =========================
+   CANVAS
+========================= */
+
+function resizeCanvas() {
+
+    canvas.width = COLS * 20;
+    canvas.height = ROWS * 20;
+
+    cellWidth = canvas.width / COLS;
+    cellHeight = canvas.height / ROWS;
+
+    draw();
+}
+
+
+/* =========================
+   START GAME
+========================= */
+
+function startGame() {
+
+    snake = [
+        { x: 10, y: 7 },
+        { x: 9, y: 7 },
+        { x: 8, y: 7 },
+        { x: 7, y: 7 }
+    ];
+
+    direction = "right";
+    nextDirection = "right";
+
+    score = 0;
+
+    gameRunning = true;
+    paused = false;
+
+    scoreElement.textContent = score;
+    highScoreElement.textContent = highScore;
+
+    hideMessage();
+
+    createFood();
+
+    clearInterval(gameLoop);
+
+    gameLoop = setInterval(update, 130);
+
+    draw();
+}
+
+
+/* =========================
+   FOOD
+========================= */
+
+function createFood() {
+
+    let validPosition = false;
+
+    while (!validPosition) {
+
+        food = {
+            x: Math.floor(Math.random() * COLS),
+            y: Math.floor(Math.random() * ROWS)
+        };
+
+        validPosition = !snake.some(
+            part => part.x === food.x && part.y === food.y
+        );
+    }
+}
+
+
+/* =========================
+   UPDATE
+========================= */
+
+function update() {
+
+    if (!gameRunning || paused) {
+        return;
+    }
+
+    direction = nextDirection;
+
+    const head = {
+        x: snake[0].x,
+        y: snake[0].y
+    };
+
+
+    if (direction === "up") {
+        head.y--;
+    }
+
+    if (direction === "down") {
+        head.y++;
+    }
+
+    if (direction === "left") {
+        head.x--;
+    }
+
+    if (direction === "right") {
+        head.x++;
+    }
+
+
+    /* WALL COLLISION */
+
+    if (
+        head.x < 0 ||
+        head.x >= COLS ||
+        head.y < 0 ||
+        head.y >= ROWS
+    ) {
+
+        gameOver();
+        return;
+    }
+
+
+    /* BODY COLLISION */
+
+    if (
+        snake.some(
+            part => part.x === head.x && part.y === head.y
+        )
+    ) {
+
+        gameOver();
+        return;
+    }
+
+
+    snake.unshift(head);
+
+
+    /* FOOD */
+
+    if (
+        head.x === food.x &&
+        head.y === food.y
+    ) {
+
+        score++;
+
+        scoreElement.textContent = score;
+
+        if (score > highScore) {
+
+            highScore = score;
+
+            highScoreElement.textContent = highScore;
+
+            localStorage.setItem(
+                "nokiaSnakeHighScore",
+                highScore
+            );
+        }
+
+        createFood();
+
+    } else {
+
+        snake.pop();
+    }
+
+
+    draw();
+}
+
+
+/* =========================
+   DRAW
+========================= */
+
+function draw() {
+
+    ctx.fillStyle = "#d7d7d7";
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    /* GRID */
+
+    ctx.strokeStyle = "rgba(0,0,0,.07)";
+    ctx.lineWidth = 1;
+
+    for (let x = 0; x <= COLS; x++) {
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            x * cellWidth,
+            0
+        );
+
+        ctx.lineTo(
+            x * cellWidth,
+            canvas.height
+        );
+
+        ctx.stroke();
+    }
+
+
+    for (let y = 0; y <= ROWS; y++) {
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            0,
+            y * cellHeight
+        );
+
+        ctx.lineTo(
+            canvas.width,
+            y * cellHeight
+        );
+
+        ctx.stroke();
+    }
+
+
+    /* FOOD */
+
+    if (food) {
+
+        ctx.fillStyle = "#111";
+
+        ctx.fillRect(
+            food.x * cellWidth + 4,
+            food.y * cellHeight + 4,
+            cellWidth - 8,
+            cellHeight - 8
+        );
+    }
+
+
+    /* SNAKE */
+
+    if (snake) {
+
+        snake.forEach((part, index) => {
+
+            ctx.fillStyle =
+                index === 0
+                    ? "#000"
+                    : "#222";
+
+            ctx.fillRect(
+                part.x * cellWidth + 2,
+                part.y * cellHeight + 2,
+                cellWidth - 4,
+                cellHeight - 4
+            );
+        });
+    }
+}
+
+
+/* =========================
+   GAME OVER
+========================= */
+
+function gameOver() {
+
+    gameRunning = false;
+
+    clearInterval(gameLoop);
+
+    messageTitle.textContent = "GAME OVER";
+
+    messageText.textContent =
+        "PRESS 5 TO RESTART";
+
+    message.style.display = "flex";
+
+    draw();
+}
+
+
+/* =========================
+   PAUSE
+========================= */
+
+function togglePause() {
+
+    if (!gameRunning) {
+
+        startGame();
+
+        return;
+    }
+
+    paused = !paused;
+
+    if (paused) {
+
+        messageTitle.textContent = "PAUSED";
+
+        messageText.textContent =
+            "PRESS 5 TO CONTINUE";
+
+        message.style.display = "flex";
+
+    } else {
+
+        hideMessage();
+    }
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function hideMessage() {
+
+    message.style.display = "none";
+}
+
+
+/* =========================
+   DIRECTION
+========================= */
+
+function changeDirection(newDirection) {
+
+    if (!gameRunning) {
+        return;
+    }
+
+    if (
+        newDirection === "up" &&
+        direction !== "down"
+    ) {
+        nextDirection = "up";
+    }
+
+    if (
+        newDirection === "down" &&
+        direction !== "up"
+    ) {
+        nextDirection = "down";
+    }
+
+    if (
+        newDirection === "left" &&
+        direction !== "right"
+    ) {
+        nextDirection = "left";
+    }
+
+    if (
+        newDirection === "right" &&
+        direction !== "left"
+    ) {
+        nextDirection = "right";
+    }
+}
+
+
+/* =========================
+   NOKIA KEYPAD
+========================= */
+
+function pressKey(key) {
+
+    switch (key) {
+
+        case "2":
+            changeDirection("up");
+            break;
+
+        case "4":
+            changeDirection("left");
+            break;
+
+        case "6":
+            changeDirection("right");
+            break;
+
+        case "8":
+            changeDirection("down");
+            break;
+
+        case "5":
+            togglePause();
+            break;
+    }
+}
+
+
+/* =========================
+   PHYSICAL KEYBOARD
+========================= */
+
+document.addEventListener("keydown", event => {
+
+    const key = event.key.toLowerCase();
+
+    if (
+        key === "arrowup" ||
+        key === "w"
+    ) {
+        changeDirection("up");
+    }
+
+    else if (
+        key === "arrowdown" ||
+        key === "s"
+    ) {
+        changeDirection("down");
+    }
+
+    else if (
+        key === "arrowleft" ||
+        key === "a"
+    ) {
+        changeDirection("left");
+    }
+
+    else if (
+        key === "arrowright" ||
+        key === "d"
+    ) {
+        changeDirection("right");
+    }
+
+    else if (key === "5" || key === " ") {
+
+        togglePause();
+    }
+});
+
+
+/* =========================
+   TOUCH / KEYPAD
+========================= */
+
+document.querySelectorAll(".key").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        pressKey(button.dataset.key);
+    });
+});
+
+
+/* =========================
+   NAVIGATION BUTTONS
+========================= */
+
+document.querySelectorAll(
+    "[data-direction]"
+).forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        changeDirection(
+            button.dataset.direction
+        );
+    });
+});
+
+
+pauseButton.addEventListener(
+    "click",
+    togglePause
+);
+
+
+/* =========================
+   INIT
+========================= */
+
+resizeCanvas();
+
+startGame();
+
+</script>
+
+</body>
+</html>
