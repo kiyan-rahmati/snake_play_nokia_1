@@ -1,226 +1,80 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#10140d">
-  <meta name="robots" content="noindex, nofollow">
+# 🐍 Snake Play Nokia
 
-  <title>You're Offline — Snake Play Nokia</title>
+A Nokia-style Snake game with **five worlds**, bonus stars, achievements and a day/night theme.
+Built with plain **HTML, CSS and JavaScript** — no frameworks, no build step, no dependencies.
 
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #10140d;
-      --surface: #1b2116;
-      --green: #a8d65e;
-      --text: #f2f4e9;
-      --muted: #a6ad9b;
-      --border: #38432d;
-    }
+> Open `index.html` in any modern browser (double-click works), or host the folder on GitHub Pages.
 
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
+<p align="center">
+  <img src="docs/screenshot-legend.png" alt="Nokia Legend world" width="46%">
+  <img src="docs/screenshot-neon.png" alt="Neon Overdrive world" width="46%">
+</p>
 
-    body {
-      min-height: 100vh;
-      margin: 0;
-      padding: 24px;
-      display: grid;
-      place-items: center;
-      background:
-        radial-gradient(
-          circle at 50% 20%,
-          rgba(168, 214, 94, 0.09),
-          transparent 42%
-        ),
-        var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      text-align: center;
-    }
+## Features
 
-    .offline-card {
-      width: min(100%, 440px);
-      padding: 36px 28px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
-    }
+- **5 worlds** that unlock one after another: *Nokia Origins* (classic LCD), *Pixel Rush* (colourful, wrap-around),
+  *Snake Maze* (stone corridors), *Neon Overdrive* (glowing arena with growing barriers) and *Nokia Legend* (final LCD maze).
+- Canvas graphics per world: LCD pixels with scanlines, gradients, glow, particles, screen shake, animated bonus stars.
+- Speed increases as you eat; reach each world's goal score to unlock the next (or keep playing in endless mode).
+- Profile, per-world high scores, lifetime stats and **13 achievements**.
+- Day / night theme, optional sound (synthesised, no audio files), optional grid and vibration.
+- Keyboard (arrows / WASD, Space = pause), **swipe** and on-screen **D-pad** on mobile.
+- Saves progress in `localStorage`; installable and playable **offline** (PWA).
 
-    .pixel-icon {
-      display: grid;
-      place-items: center;
-      width: 88px;
-      height: 88px;
-      margin: 0 auto 24px;
-      border: 2px solid var(--green);
-      border-radius: 16px;
-      color: var(--green);
-      font-size: 42px;
-      line-height: 1;
-      box-shadow: 0 0 28px rgba(168, 214, 94, 0.1);
-    }
+## Controls
 
-    h1 {
-      margin: 0 0 12px;
-      font-size: clamp(1.7rem, 6vw, 2.2rem);
-      letter-spacing: -0.04em;
-    }
+| Action | Keyboard | Touch |
+| --- | --- | --- |
+| Steer | Arrow keys / WASD | Swipe on the board, or D-pad |
+| Pause / resume | Space, P or Esc | Pause button |
+| Confirm | Enter | Tap |
 
-    p {
-      margin: 0 auto 24px;
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.7;
-    }
+## Project structure
 
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 26px;
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      color: var(--muted);
-      font-size: 0.85rem;
-    }
+```
+snake-play-nokia/
+├── index.html            Page shell (home, game, achievements, settings screens)
+├── css/
+│   ├── base.css          Reset, design tokens, day/night themes, top bar
+│   ├── ui.css            Buttons, cards, panels, achievements, toasts
+│   └── game.css          HUD, board, overlays, countdown, D-pad
+├── js/                   Loaded in this order (plain scripts, one global: `SP`)
+│   ├── config.js         Constants + the five world definitions (data only)
+│   ├── storage.js        Save data (never throws, falls back to memory)
+│   ├── audio.js          Synthesised sound effects
+│   ├── engine.js         Pure game logic — no DOM, fully unit-tested
+│   ├── renderer.js       Canvas drawing for every world style
+│   ├── input.js          Keyboard, swipe and D-pad
+│   ├── achievements.js   Achievement rules
+│   ├── ui.js             DOM views (safe: text is never inserted as HTML)
+│   └── app.js            Controller: routing, game loop, HUD, progress
+├── tests/                Node's built-in test runner
+├── assets/icon.svg
+├── manifest.webmanifest  PWA manifest
+└── service-worker.js     Offline cache
+```
 
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      background: #e8b65c;
-      border-radius: 50%;
-    }
+### Design notes
 
-    .actions {
-      display: grid;
-      gap: 12px;
-    }
+- `engine.js` knows nothing about the browser. `app.js` calls `game.step()` on a fixed tick and reacts to the returned
+  events (`eat`, `bonus`, `die`, `win`…) with sound, particles and saving. This keeps the rules testable.
+- Adding a world = adding one object to `SP.WORLDS` in `config.js` (size, speed, palette, optional maze `layout`).
+  The tests check that every world's free cells are reachable and that the start area is clear.
 
-    .button {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 48px;
-      padding: 12px 18px;
-      border: 1px solid var(--green);
-      border-radius: 10px;
-      background: var(--green);
-      color: #18210e;
-      font: inherit;
-      font-weight: 700;
-      text-decoration: none;
-      cursor: pointer;
-      transition: transform 160ms ease, opacity 160ms ease;
-    }
+## Development
 
-    .button:hover {
-      transform: translateY(-2px);
-    }
+```bash
+npm test          # runs the 30 unit tests (Node 18+, no installs needed)
+```
 
-    .button:active {
-      transform: translateY(0);
-    }
+To preview locally with a server (optional): `python3 -m http.server 8080` and open http://localhost:8080.
+After changing any file, bump `CACHE` in `service-worker.js` so installed copies update.
 
-    .button-secondary {
-      background: transparent;
-      color: var(--text);
-      border-color: var(--border);
-    }
+## Deploy on GitHub Pages
 
-    .button:focus-visible {
-      outline: 3px solid var(--text);
-      outline-offset: 4px;
-    }
+Repository → **Settings → Pages → Deploy from a branch → `main` / root**. The game will be live at
+`https://<your-username>.github.io/<repo-name>/`.
 
-    .footer {
-      margin-top: 28px;
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
+## License
 
-    .footer span {
-      color: var(--green);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        transition: none !important;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <main class="offline-card">
-    <div class="pixel-icon" aria-hidden="true">▦</div>
-
-    <h1>Oops! You're offline.</h1>
-
-    <p>
-      Looks like your connection took a little break.
-      Check your internet connection and try again.
-    </p>
-
-    <div class="status" role="status" aria-live="polite">
-      <span class="status-dot" aria-hidden="true"></span>
-      <span id="connection-status">No internet connection detected</span>
-    </div>
-
-    <div class="actions">
-      <button class="button" id="retry-button" type="button">
-        Try Again
-      </button>
-
-      <a class="button button-secondary" href="./index.html">
-        Back to Snake Play Nokia
-      </a>
-    </div>
-
-    <div class="footer">
-      Powered by <span>Snake Play Nokia</span>
-    </div>
-  </main>
-
-  <script>
-    "use strict";
-
-    const retryButton = document.getElementById("retry-button");
-    const connectionStatus = document.getElementById("connection-status");
-
-    function updateConnectionStatus() {
-      if (navigator.onLine) {
-        connectionStatus.textContent = "Connection available — ready to retry";
-      } else {
-        connectionStatus.textContent = "No internet connection detected";
-      }
-    }
-
-    retryButton.addEventListener("click", () => {
-      updateConnectionStatus();
-
-      if (navigator.onLine) {
-        window.location.href = "./index.html";
-        return;
-      }
-
-      retryButton.textContent = "Still Offline — Try Again";
-    });
-
-    window.addEventListener("online", updateConnectionStatus);
-    window.addEventListener("offline", updateConnectionStatus);
-
-    updateConnectionStatus();
-  </script>
-</body>
-</html>
+MIT © 2026 Kiyan Rahmati

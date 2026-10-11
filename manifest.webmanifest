@@ -1,65 +1,14 @@
 {
-  "id": "./",
-  "name": "Snake Play Nokia — Retro Snake Adventure",
-  "short_name": "Snake Nokia",
-  "description": "Rediscover classic Nokia Snake with retro pixel art, multiple worlds, achievements, and offline gameplay.",
-  "lang": "en",
-  "dir": "ltr",
+  "name": "Snake Play Nokia",
+  "short_name": "Snake",
+  "description": "Nokia-style Snake with five worlds. Plays offline.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "display_override": [
-    "standalone",
-    "minimal-ui",
-    "browser"
-  ],
-  "orientation": "any",
-  "theme_color": "#10140d",
+  "orientation": "portrait",
   "background_color": "#10140d",
-  "categories": [
-    "games",
-    "entertainment"
-  ],
-  "prefer_related_applications": false,
+  "theme_color": "#10140d",
   "icons": [
-    {
-      "src": "./assets/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./assets/icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./assets/icons/icon-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Play Snake",
-      "short_name": "Play",
-      "description": "Start a new Snake game",
-      "url": "./index.html#game",
-      "icons": [
-        {
-          "src": "./assets/icons/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
-      "name": "Player Profile",
-      "short_name": "Profile",
-      "description": "View your player profile",
-      "url": "./index.html#profile"
-    }
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
   ]
 }

@@ -4,657 +4,153 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#10140d">
-  <meta name="description" content="Rediscover classic Nokia Snake in a nostalgic pixel-art arcade adventure. Play offline, explore worlds, unlock achievements, and beat your high score.">
-  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Nokia-style Snake with five worlds, bonus stars, achievements and day/night themes. Plays offline in any browser.">
+  <title>Snake Play Nokia</title>
 
-  <title>Snake Play Nokia — Retro Snake Adventure</title>
-
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="icon" href="./assets/icons/favicon.ico">
-  <link rel="stylesheet" href="./css/base/reset.css">
-  <link rel="stylesheet" href="./css/base/variables.css">
-  <link rel="stylesheet" href="./css/base/typography.css">
-  <link rel="stylesheet" href="./css/base/accessibility.css">
-
-  <link rel="stylesheet" href="./css/layout/app-shell.css">
-  <link rel="stylesheet" href="./css/layout/header.css">
-  <link rel="stylesheet" href="./css/layout/navigation.css">
-  <link rel="stylesheet" href="./css/layout/responsive.css">
-
-  <link rel="stylesheet" href="./css/components/buttons.css">
-  <link rel="stylesheet" href="./css/components/cards.css">
-  <link rel="stylesheet" href="./css/components/forms.css">
-  <link rel="stylesheet" href="./css/components/modals.css">
-  <link rel="stylesheet" href="./css/components/notifications.css">
-  <link rel="stylesheet" href="./css/components/loading-screen.css">
-
-  <link rel="stylesheet" href="./css/pages/home.css">
-  <link rel="stylesheet" href="./css/pages/game-page.css">
-  <link rel="stylesheet" href="./css/pages/profile-page.css">
-  <link rel="stylesheet" href="./css/pages/settings-page.css">
-  <link rel="stylesheet" href="./css/pages/achievements-page.css">
-  <link rel="stylesheet" href="./css/pages/game-over-page.css">
-
-  <link rel="stylesheet" href="./css/game/board.css">
-  <link rel="stylesheet" href="./css/game/snake.css">
-  <link rel="stylesheet" href="./css/game/food.css">
-  <link rel="stylesheet" href="./css/game/obstacles.css">
-  <link rel="stylesheet" href="./css/game/game-hud.css">
-  <link rel="stylesheet" href="./css/game/lives.css">
-  <link rel="stylesheet" href="./css/game/mobile-controls.css">
-
-  <link rel="stylesheet" href="./css/audio/cassette-player.css">
-  <link rel="stylesheet" href="./css/system-info/system-info-panel.css">
-  <link rel="stylesheet" href="./css/system-info/system-info-responsive.css">
-
-  <link rel="stylesheet" href="./css/themes/day.css">
-  <link rel="stylesheet" href="./css/themes/night.css">
-  <link rel="stylesheet" href="./css/themes/theme-transitions.css">
-
-  <link rel="stylesheet" href="./css/animations/countdown.css">
-  <link rel="stylesheet" href="./css/animations/level-transition.css">
-  <link rel="stylesheet" href="./css/animations/world-intro.css">
-  <link rel="stylesheet" href="./css/animations/game-effects.css">
-
-  <link rel="stylesheet" href="./themes/day/theme.css">
-  <link rel="stylesheet" href="./themes/night/theme.css">
-  <link rel="stylesheet" href="./themes/worlds/nokia-origins.css">
-  <link rel="stylesheet" href="./themes/worlds/pixel-rush.css">
-  <link rel="stylesheet" href="./themes/worlds/snake-maze.css">
-  <link rel="stylesheet" href="./themes/worlds/neon-overdrive.css">
-  <link rel="stylesheet" href="./themes/worlds/nokia-legend.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/ui.css">
+  <link rel="stylesheet" href="css/game.css">
 </head>
-
 <body>
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <div id="app" class="app-shell">
-    <div
-      id="loading-screen"
-      class="loading-screen"
-      role="status"
-      aria-live="polite"
-    >
-      <div class="loading-screen__content">
-        <div class="loading-screen__logo" aria-hidden="true">🐍</div>
-        <h1 class="loading-screen__title">SNAKE PLAY NOKIA</h1>
-        <p class="loading-screen__message">Loading your arcade...</p>
-        <div
-          class="loading-screen__progress"
-          role="progressbar"
-          aria-label="Loading game"
-        >
-          <div class="loading-screen__progress-bar"></div>
+  <header class="topbar">
+    <a class="brand" href="#/home" aria-label="Snake Play Nokia — home">
+      <span class="brand__logo" aria-hidden="true">🐍</span>
+      <span class="brand__text">SNAKE PLAY <b>NOKIA</b></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#/home" data-nav="home">Play</a>
+      <a href="#/achievements" data-nav="achievements">Achievements</a>
+      <a href="#/settings" data-nav="settings">Profile</a>
+    </nav>
+    <button id="theme-toggle" class="icon-btn" type="button" aria-label="Switch between day and night theme">☀</button>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- HOME -->
+    <section class="screen" data-screen="home" hidden>
+      <div class="hero">
+        <p class="eyebrow">THE LEGEND IS BACK</p>
+        <h1 class="hero__title">Snake Play <span>Nokia</span></h1>
+        <p class="hero__text">One snake. Five worlds. Endless nostalgia. How high can you score?</p>
+        <button id="btn-play" class="btn btn--primary btn--lg" type="button">▶ Play</button>
+      </div>
+
+      <div class="stats-row" aria-label="Your stats">
+        <div class="stat"><span>High score</span><b id="home-best">0</b></div>
+        <div class="stat"><span>Games played</span><b id="home-games">0</b></div>
+        <div class="stat"><span>Achievements</span><b id="home-ach">0</b></div>
+      </div>
+
+      <h2 class="section-title">Choose your world</h2>
+      <div class="world-grid" id="world-grid"></div>
+    </section>
+
+    <!-- GAME -->
+    <section class="screen" data-screen="game" hidden>
+      <div class="hud">
+        <div class="hud__title"><span id="hud-icon" aria-hidden="true"></span><strong id="hud-world"></strong></div>
+        <div class="hud__stat"><span>Score</span><b id="hud-score">0</b></div>
+        <div class="hud__stat"><span>Best</span><b id="hud-best">0</b></div>
+        <div class="hud__stat"><span>Length</span><b id="hud-length">3</b></div>
+        <div class="hud__stat"><span>Speed</span><b id="hud-speed">1</b></div>
+      </div>
+
+      <div class="goal" role="progressbar" aria-label="Progress to unlock the next world" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="goal">
+        <div class="goal__fill" id="goal-fill"></div>
+        <span class="goal__label" id="goal-label"></span>
+      </div>
+
+      <div class="board-wrap" id="board-wrap">
+        <canvas id="board" aria-label="Snake game board"></canvas>
+        <div class="countdown" id="countdown" hidden aria-live="assertive"></div>
+        <div class="overlay" id="overlay" hidden>
+          <div class="overlay__card" role="dialog" aria-modal="false" aria-labelledby="ov-title">
+            <div class="overlay__icon" id="ov-icon" aria-hidden="true"></div>
+            <h2 id="ov-title"></h2>
+            <p id="ov-text"></p>
+            <div class="overlay__actions" id="ov-actions"></div>
+          </div>
         </div>
-        <p class="loading-screen__hint">PRESS START WHEN READY</p>
-      </div>
-    </div>
-
-    <header id="app-header" class="app-header">
-      <div class="app-header__brand">
-        <a href="#home" class="app-logo" aria-label="Snake Play Nokia home">
-          <span class="app-logo__icon" aria-hidden="true">🐍</span>
-          <span class="app-logo__text">SNAKE PLAY</span>
-        </a>
       </div>
 
-      <div class="app-header__actions">
-        <button
-          id="theme-toggle"
-          class="button button--icon"
-          type="button"
-          aria-label="Switch between day and night themes"
-          title="Toggle theme"
-        >
-          <span aria-hidden="true">☀</span>
-        </button>
-
-        <button
-          id="header-settings"
-          class="button button--icon"
-          type="button"
-          data-navigate="settings"
-          aria-label="Open settings"
-          title="Settings"
-        >
-          <span aria-hidden="true">⚙</span>
-        </button>
+      <div class="controls">
+        <button id="btn-pause" class="btn" type="button">❚❚ Pause</button>
+        <button id="btn-restart" class="btn" type="button">↻ Restart</button>
+        <button id="btn-exit" class="btn" type="button">✕ Worlds</button>
       </div>
-    </header>
 
-    <div class="app-layout">
-      <nav id="main-navigation" class="main-navigation" aria-label="Main navigation">
-        <a href="#home" class="navigation-link is-active" data-navigate="home">
-          <span aria-hidden="true">⌂</span>
-          <span>Home</span>
-        </a>
+      <div class="dpad" id="dpad" aria-label="On-screen controls">
+        <button type="button" class="dpad__btn dpad__up" data-dir="up" aria-label="Up">▲</button>
+        <button type="button" class="dpad__btn dpad__left" data-dir="left" aria-label="Left">◀</button>
+        <button type="button" class="dpad__btn dpad__right" data-dir="right" aria-label="Right">▶</button>
+        <button type="button" class="dpad__btn dpad__down" data-dir="down" aria-label="Down">▼</button>
+      </div>
+      <p class="hint">Arrow keys or WASD to steer · Space to pause · swipe on touch screens</p>
+    </section>
 
-        <a href="#game" class="navigation-link" data-navigate="game">
-          <span aria-hidden="true">▶</span>
-          <span>Play</span>
-        </a>
+    <!-- ACHIEVEMENTS -->
+    <section class="screen" data-screen="achievements" hidden>
+      <h1 class="page-title">Achievements</h1>
+      <p class="muted" id="ach-summary"></p>
+      <div class="ach-grid" id="ach-grid"></div>
+    </section>
 
-        <a href="#profile" class="navigation-link" data-navigate="profile">
-          <span aria-hidden="true">☺</span>
-          <span>Profile</span>
-        </a>
+    <!-- PROFILE & SETTINGS -->
+    <section class="screen" data-screen="settings" hidden>
+      <h1 class="page-title">Profile &amp; Settings</h1>
 
-        <a href="#achievements" class="navigation-link" data-navigate="achievements">
-          <span aria-hidden="true">★</span>
-          <span>Achievements</span>
-        </a>
-
-        <a href="#settings" class="navigation-link" data-navigate="settings">
-          <span aria-hidden="true">⚙</span>
-          <span>Settings</span>
-        </a>
-      </nav>
-
-      <main id="main-content" class="app-main" tabindex="-1">
-        <section id="page-home" class="page home-page" data-page="home">
-          <div class="home-hero">
-            <p class="home-hero__eyebrow">THE LEGEND IS BACK</p>
-            <h1 class="home-hero__title">READY, PLAYER?</h1>
-            <p class="home-hero__description">
-              One snake. Endless nostalgia. How high can you score?
-            </p>
-
-            <button
-              id="start-game-button"
-              class="button button--primary button--large"
-              type="button"
-              data-action="start-game"
-            >
-              <span aria-hidden="true">▶</span>
-              START GAME
-            </button>
-          </div>
-
-          <div class="home-stats" aria-label="Your game statistics">
-            <article class="card home-stat">
-              <span class="home-stat__label">HIGH SCORE</span>
-              <strong id="home-high-score" class="home-stat__value">0</strong>
-            </article>
-
-            <article class="card home-stat">
-              <span class="home-stat__label">GAMES PLAYED</span>
-              <strong id="home-games-played" class="home-stat__value">0</strong>
-            </article>
-
-            <article class="card home-stat">
-              <span class="home-stat__label">SNAKES UNLOCKED</span>
-              <strong id="home-achievements" class="home-stat__value">0</strong>
-            </article>
-          </div>
-
-          <section class="home-section" aria-labelledby="worlds-heading">
-            <div class="section-heading">
-              <h2 id="worlds-heading">CHOOSE YOUR WORLD</h2>
-              <p>Five worlds. Five different vibes.</p>
-            </div>
-
-            <div id="world-selection" class="world-selection">
-              <button
-                class="card world-card is-selected"
-                type="button"
-                data-world-select="nokia-origins"
-                aria-pressed="true"
-              >
-                <span class="world-card__icon" aria-hidden="true">📟</span>
-                <strong>Nokia Origins</strong>
-                <span>Classic LCD nostalgia</span>
-              </button>
-
-              <button
-                class="card world-card"
-                type="button"
-                data-world-select="pixel-rush"
-                aria-pressed="false"
-              >
-                <span class="world-card__icon" aria-hidden="true">🕹️</span>
-                <strong>Pixel Rush</strong>
-                <span>Retro arcade energy</span>
-              </button>
-
-              <button
-                class="card world-card"
-                type="button"
-                data-world-select="snake-maze"
-                aria-pressed="false"
-              >
-                <span class="world-card__icon" aria-hidden="true">🧩</span>
-                <strong>Snake Maze</strong>
-                <span>Think before you turn</span>
-              </button>
-
-              <button
-                class="card world-card"
-                type="button"
-                data-world-select="neon-overdrive"
-                aria-pressed="false"
-              >
-                <span class="world-card__icon" aria-hidden="true">⚡</span>
-                <strong>Neon Overdrive</strong>
-                <span>Full-speed cyber vibes</span>
-              </button>
-
-              <button
-                class="card world-card"
-                type="button"
-                data-world-select="nokia-legend"
-                aria-pressed="false"
-              >
-                <span class="world-card__icon" aria-hidden="true">👑</span>
-                <strong>Nokia Legend</strong>
-                <span>For the real classics</span>
-              </button>
-            </div>
-          </section>
-
-          <section class="home-section" aria-labelledby="recent-games-heading">
-            <div class="section-heading">
-              <h2 id="recent-games-heading">RECENT RUNS</h2>
-              <p>Your last adventures.</p>
-            </div>
-
-            <div id="recent-games" class="recent-games" aria-live="polite">
-              <p class="empty-state">No runs yet. Go make history!</p>
-            </div>
-          </section>
-        </section>
-
-        <section
-          id="page-game"
-          class="page game-page"
-          data-page="game"
-          hidden
-          aria-labelledby="game-page-title"
-        >
-          <div class="game-page__header">
-            <h1 id="game-page-title" class="world-title">NOKIA ORIGINS</h1>
-            <p>Eat, grow, and try not to eat yourself.</p>
-          </div>
-
-          <div class="game-hud" aria-label="Current game statistics">
-            <div class="game-hud__item">
-              <span>SCORE</span>
-              <strong id="game-score" class="score-value">0</strong>
-            </div>
-
-            <div class="game-hud__item">
-              <span>BEST</span>
-              <strong id="game-high-score">0</strong>
-            </div>
-
-            <div class="game-hud__item">
-              <span>LEVEL</span>
-              <strong id="game-level" class="level-value">1</strong>
-            </div>
-
-            <div class="game-hud__item">
-              <span>LIVES</span>
-              <strong id="game-lives" class="lives-value">3</strong>
-            </div>
-          </div>
-
-          <div class="game-board-wrapper">
-            <canvas
-              id="game-canvas"
-              class="game-board"
-              width="400"
-              height="400"
-              role="img"
-              aria-label="Snake game board. Use the arrow keys or WASD to move."
-            ></canvas>
-
-            <div id="game-overlay" class="game-overlay" hidden>
-              <div class="game-overlay__content">
-                <h2 id="game-overlay-title">READY?</h2>
-                <p id="game-overlay-message">Press start to begin.</p>
-                <button
-                  id="overlay-start-button"
-                  class="button button--primary"
-                  type="button"
-                  data-action="start-game"
-                >
-                  START
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="game-controls">
-            <button
-              id="pause-game-button"
-              class="button"
-              type="button"
-              data-action="pause-game"
-            >
-              PAUSE
-            </button>
-
-            <button
-              id="restart-game-button"
-              class="button"
-              type="button"
-              data-action="restart-game"
-            >
-              RESTART
-            </button>
-
-            <button
-              id="exit-game-button"
-              class="button"
-              type="button"
-              data-action="exit-game"
-            >
-              EXIT
-            </button>
-          </div>
-
-          <div class="mobile-controls" aria-label="Touch movement controls">
-            <button type="button" data-direction="up" aria-label="Move up">▲</button>
-            <div class="mobile-controls__middle">
-              <button type="button" data-direction="left" aria-label="Move left">◀</button>
-              <button type="button" data-direction="down" aria-label="Move down">▼</button>
-              <button type="button" data-direction="right" aria-label="Move right">▶</button>
-            </div>
-          </div>
-
-          <p class="game-page__hint">
-            Move: Arrow keys / WASD · Pause: P / Space · Start: Enter
-          </p>
-        </section>
-
-        <section
-          id="page-profile"
-          class="page profile-page"
-          data-page="profile"
-          hidden
-          aria-labelledby="profile-page-title"
-        >
-          <h1 id="profile-page-title">PLAYER PROFILE</h1>
-
-          <form id="profile-form" class="profile-form">
-            <label for="profile-username">Player name</label>
-            <input
-              id="profile-username"
-              name="username"
-              type="text"
-              minlength="2"
-              maxlength="20"
-              autocomplete="nickname"
-              placeholder="Choose your nickname"
-              required
-            >
-
-            <label for="profile-avatar">Avatar</label>
-            <select id="profile-avatar" name="avatar">
-              <option value="snake">🐍 Snake</option>
-              <option value="pixel">👾 Pixel</option>
-              <option value="robot">🤖 Robot</option>
-              <option value="ghost">👻 Ghost</option>
-              <option value="crown">👑 Legend</option>
-            </select>
-
-            <button class="button button--primary" type="submit">
-              SAVE PROFILE
-            </button>
-          </form>
-
-          <div id="profile-statistics" class="profile-statistics"></div>
-        </section>
-
-        <section
-          id="page-settings"
-          class="page settings-page"
-          data-page="settings"
-          hidden
-          aria-labelledby="settings-page-title"
-        >
-          <h1 id="settings-page-title">GAME SETTINGS</h1>
-
-          <form id="settings-form" class="settings-form">
-            <label for="settings-theme">Appearance</label>
-            <select id="settings-theme" name="theme">
-              <option value="night">Night</option>
-              <option value="day">Day</option>
-            </select>
-
-            <label for="settings-difficulty">Difficulty</label>
-            <select id="settings-difficulty" name="difficulty">
-              <option value="easy">Easy</option>
-              <option value="normal" selected>Normal</option>
-              <option value="hard">Hard</option>
-              <option value="expert">Expert</option>
-            </select>
-
-            <label for="settings-mode">Game mode</label>
-            <select id="settings-mode" name="mode">
-              <option value="classic">Classic</option>
-              <option value="wrap-around">Wrap Around</option>
-              <option value="challenge">Challenge</option>
-              <option value="endless">Endless</option>
-            </select>
-
-            <label for="settings-sound">
-              <input id="settings-sound" name="sound" type="checkbox" checked>
-              Sound effects
-            </label>
-
-            <label for="settings-music">
-              <input id="settings-music" name="music" type="checkbox">
-              Background music
-            </label>
-
-            <label for="settings-reduced-motion">
-              <input
-                id="settings-reduced-motion"
-                name="reducedMotion"
-                type="checkbox"
-              >
-              Reduce animations
-            </label>
-
-            <button class="button button--primary" type="submit">
-              SAVE SETTINGS
-            </button>
-          </form>
-        </section>
-
-        <section
-          id="page-achievements"
-          class="page achievements-page"
-          data-page="achievements"
-          hidden
-          aria-labelledby="achievements-page-title"
-        >
-          <h1 id="achievements-page-title">ACHIEVEMENTS</h1>
-          <p>Every legend starts with one point.</p>
-
-          <div id="achievements-list" class="achievements-list">
-            <p class="empty-state">Your next achievement is waiting.</p>
-          </div>
-        </section>
-      </main>
-    </div>
-
-    <div
-      id="notification-container"
-      class="notification-container"
-      aria-live="polite"
-      aria-atomic="false"
-    ></div>
-
-    <dialog id="confirmation-dialog" class="modal">
-      <form method="dialog" class="modal__content">
-        <h2 id="confirmation-title">Are you sure?</h2>
-        <p id="confirmation-message">Please confirm this action.</p>
-
-        <div class="modal__actions">
-          <button class="button" value="cancel">CANCEL</button>
-          <button class="button button--primary" value="confirm">CONFIRM</button>
+      <div class="panel">
+        <h2>Player</h2>
+        <div class="field">
+          <label for="set-name">Name</label>
+          <input id="set-name" type="text" maxlength="14" autocomplete="nickname" spellcheck="false">
         </div>
-      </form>
-    </dialog>
+        <div class="field">
+          <label for="set-avatar">Avatar</label>
+          <select id="set-avatar">
+            <option>🐍</option><option>🐉</option><option>🦎</option><option>🐢</option>
+            <option>👾</option><option>🤖</option><option>🦊</option><option>🐸</option>
+          </select>
+        </div>
+        <div class="profile-stats" id="profile-stats"></div>
+      </div>
 
-    <footer class="app-footer">
-      <p>Made for the love of pixels, snakes, and old-school phones.</p>
-      <p>Snake Play Nokia · Offline-friendly arcade</p>
-    </footer>
-  </div>
+      <div class="panel">
+        <h2>Settings</h2>
+        <label class="switch"><input type="checkbox" id="set-sound"><span>Sound effects</span></label>
+        <label class="switch"><input type="checkbox" id="set-grid"><span>Show grid on the board</span></label>
+        <label class="switch"><input type="checkbox" id="set-vibration"><span>Vibration on mobile</span></label>
+      </div>
 
-  <noscript>
-    <div class="noscript-message">
-      JavaScript is required to play Snake Play Nokia. Please enable JavaScript
-      in your browser and reload the page.
-    </div>
-  </noscript>
+      <div class="panel panel--danger">
+        <h2>Reset</h2>
+        <p class="muted">Deletes your name, stats, achievements and unlocked worlds on this device.</p>
+        <button id="btn-reset" class="btn btn--danger" type="button">Reset all progress</button>
+      </div>
+    </section>
+  </main>
 
-  <script src="./js/utils/constants.js" defer></script>
-  <script src="./js/utils/helpers.js" defer></script>
-  <script src="./js/utils/random.js" defer></script>
-  <script src="./js/utils/dom.js" defer></script>
-  <script src="./js/utils/formatters.js" defer></script>
-  <script src="./js/utils/logger.js" defer></script>
+  <footer class="footer">
+    <span>Snake Play Nokia v2.0 · MIT License</span>
+  </footer>
 
-  <script src="./js/services/config-service.js" defer></script>
-  <script src="./js/services/asset-service.js" defer></script>
-  <script src="./js/services/connection-status.js" defer></script>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
 
-  <script src="./js/core/event-bus.js" defer></script>
-  <script src="./js/core/game-state.js" defer></script>
-  <script src="./js/core/game-clock.js" defer></script>
-  <script src="./js/core/game-session.js" defer></script>
-  <script src="./js/core/game-loop.js" defer></script>
-  <script src="./js/core/game-engine.js" defer></script>
+  <noscript><p class="noscript">This game needs JavaScript. Please enable it and reload.</p></noscript>
 
-  <script src="./js/gameplay/snake/snake-model.js" defer></script>
-  <script src="./js/gameplay/snake/snake-movement.js" defer></script>
-  <script src="./js/gameplay/snake/snake-growth.js" defer></script>
-  <script src="./js/gameplay/snake/snake-renderer.js" defer></script>
-
-  <script src="./js/gameplay/food/food-model.js" defer></script>
-  <script src="./js/gameplay/food/food-spawner.js" defer></script>
-  <script src="./js/gameplay/food/food-effects.js" defer></script>
-
-  <script src="./js/gameplay/collision/collision-detector.js" defer></script>
-  <script src="./js/gameplay/collision/wall-collision.js" defer></script>
-  <script src="./js/gameplay/collision/self-collision.js" defer></script>
-  <script src="./js/gameplay/collision/obstacle-collision.js" defer></script>
-
-  <script src="./js/gameplay/systems/score-system.js" defer></script>
-  <script src="./js/gameplay/systems/lives-system.js" defer></script>
-  <script src="./js/gameplay/systems/difficulty-system.js" defer></script>
-  <script src="./js/gameplay/systems/speed-system.js" defer></script>
-  <script src="./js/gameplay/systems/obstacle-system.js" defer></script>
-  <script src="./js/gameplay/systems/power-up-system.js" defer></script>
-  <script src="./js/gameplay/systems/level-progression.js" defer></script>
-
-  <script src="./js/gameplay/modes/classic-mode.js" defer></script>
-  <script src="./js/gameplay/modes/wrap-around-mode.js" defer></script>
-  <script src="./js/gameplay/modes/challenge-mode.js" defer></script>
-  <script src="./js/gameplay/modes/endless-mode.js" defer></script>
-
-  <script src="./js/rendering/renderer.js" defer></script>
-  <script src="./js/rendering/canvas-renderer.js" defer></script>
-  <script src="./js/rendering/grid-renderer.js" defer></script>
-  <script src="./js/rendering/effects-renderer.js" defer></script>
-
-  <script src="./js/input/input-mapping.js" defer></script>
-  <script src="./js/input/keyboard-input.js" defer></script>
-  <script src="./js/input/touch-input.js" defer></script>
-  <script src="./js/input/input-manager.js" defer></script>
-
-  <script src="./js/storage/save-schema.js" defer></script>
-  <script src="./js/storage/save-migrations.js" defer></script>
-  <script src="./js/storage/local-storage.js" defer></script>
-  <script src="./js/storage/storage-adapter.js" defer></script>
-  <script src="./js/storage/backup-manager.js" defer></script>
-
-  <script src="./js/settings/settings-manager.js" defer></script>
-  <script src="./js/settings/theme-manager.js" defer></script>
-  <script src="./js/settings/day-night-toggle.js" defer></script>
-  <script src="./js/settings/audio-settings.js" defer></script>
-  <script src="./js/settings/control-settings.js" defer></script>
-  <script src="./js/settings/accessibility-settings.js" defer></script>
-
-  <script src="./js/records/record-manager.js" defer></script>
-  <script src="./js/records/high-score-manager.js" defer></script>
-  <script src="./js/records/session-history.js" defer></script>
-  <script src="./js/records/personal-bests.js" defer></script>
-
-  <script src="./js/achievements/achievement-rules.js" defer></script>
-  <script src="./js/achievements/achievement-tracker.js" defer></script>
-  <script src="./js/achievements/achievement-manager.js" defer></script>
-
-  <script src="./js/profile/profile-model.js" defer></script>
-  <script src="./js/profile/profile-validator.js" defer></script>
-  <script src="./js/profile/username-suggestions.js" defer></script>
-  <script src="./js/profile/avatar-manager.js" defer></script>
-  <script src="./js/profile/profile-statistics.js" defer></script>
-  <script src="./js/profile/profile-controller.js" defer></script>
-  <script src="./js/profile/profile-form.js" defer></script>
-
-  <script src="./js/auth/demo-session.js" defer></script>
-  <script src="./js/auth/guest-session.js" defer></script>
-  <script src="./js/auth/auth-controller.js" defer></script>
-  <script src="./js/auth/auth-ui.js" defer></script>
-
-  <script src="./js/audio/audio-preferences.js" defer></script>
-  <script src="./js/audio/volume-controller.js" defer></script>
-  <script src="./js/audio/playlist-manager.js" defer></script>
-  <script src="./js/audio/music-player.js" defer></script>
-  <script src="./js/audio/sound-effects.js" defer></script>
-  <script src="./js/audio/cassette-controller.js" defer></script>
-  <script src="./js/audio/audio-manager.js" defer></script>
-
-  <script src="./js/worlds/world-registry.js" defer></script>
-  <script src="./js/worlds/world-manager.js" defer></script>
-  <script src="./js/worlds/world-transition.js" defer></script>
-  <script src="./js/worlds/world-announcer.js" defer></script>
-  <script src="./js/worlds/world-audio-controller.js" defer></script>
-
-  <script src="./js/levels/level-registry.js" defer></script>
-  <script src="./js/levels/level-loader.js" defer></script>
-  <script src="./js/levels/level-validator.js" defer></script>
-  <script src="./js/levels/level-transition.js" defer></script>
-  <script src="./js/levels/level-session.js" defer></script>
-  <script src="./js/levels/level-unlock-manager.js" defer></script>
-
-  <script src="./js/system-info/browser-detector.js" defer></script>
-  <script src="./js/system-info/platform-detector.js" defer></script>
-  <script src="./js/system-info/device-detector.js" defer></script>
-  <script src="./js/system-info/screen-info.js" defer></script>
-  <script src="./js/system-info/privacy-consent.js" defer></script>
-  <script src="./js/system-info/public-ip-provider.js" defer></script>
-  <script src="./js/system-info/system-info-view.js" defer></script>
-  <script src="./js/system-info/system-info-controller.js" defer></script>
-
-  <script src="./js/ui/shell/header.js" defer></script>
-  <script src="./js/ui/shell/navigation.js" defer></script>
-
-  <script src="./js/ui/pages/home-page.js" defer></script>
-  <script src="./js/ui/pages/game-page.js" defer></script>
-  <script src="./js/ui/pages/profile-page.js" defer></script>
-  <script src="./js/ui/pages/settings-page.js" defer></script>
-  <script src="./js/ui/pages/achievements-page.js" defer></script>
-
-  <script src="./js/ui/overlays/countdown-overlay.js" defer></script>
-  <script src="./js/ui/overlays/level-intro.js" defer></script>
-  <script src="./js/ui/overlays/world-intro.js" defer></script>
-  <script src="./js/ui/overlays/pause-overlay.js" defer></script>
-  <script src="./js/ui/overlays/game-over-overlay.js" defer></script>
-
-  <script src="./js/ui/cassette/cassette-view.js" defer></script>
-  <script src="./js/ui/cassette/cassette-controls.js" defer></script>
-  <script src="./js/ui/system-info/system-info-panel.js" defer></script>
-  <script src="./js/ui/system-info/public-ip-dialog.js" defer></script>
-
-  <script src="./js/app/app-events.js" defer></script>
-  <script src="./js/app/app-lifecycle.js" defer></script>
-  <script src="./js/app/app-router.js" defer></script>
-  <script src="./js/app/app-bootstrap.js" defer></script>
-  <script src="./js/main.js" defer></script>
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,0 +1,69 @@
+/* game.css — HUD, board, overlays, countdown, D-pad */
+.hud {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px;
+  padding: 12px 16px; margin-top: 8px; border-radius: 16px;
+  background: var(--surface); border: 1px solid var(--border);
+}
+.hud__title { display: flex; align-items: center; gap: 8px; margin-right: auto; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.hud__stat { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.15; }
+.hud__stat span { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; }
+.hud__stat b { font-size: 1.3rem; color: var(--accent); font-variant-numeric: tabular-nums; }
+
+.goal {
+  position: relative; height: 18px; margin: 10px 0; border-radius: 99px; overflow: hidden;
+  background: var(--surface-2); border: 1px solid var(--border);
+}
+.goal__fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), #f4ff7a); transition: width 0.25s; }
+.goal__label { position: absolute; inset: 0; display: grid; place-items: center; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); mix-blend-mode: normal; text-shadow: 0 0 4px var(--bg); }
+
+.board-wrap {
+  position: relative; width: 100%; display: grid; place-items: center; padding: 10px;
+  border-radius: 20px; background: var(--world-page, #111); border: 2px solid var(--border); box-shadow: var(--shadow);
+}
+#board { border-radius: 10px; touch-action: none; user-select: none; -webkit-user-select: none; image-rendering: auto; }
+
+.overlay {
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 16px;
+  background: rgba(8, 12, 6, 0.62); backdrop-filter: blur(3px); border-radius: 18px; z-index: 5;
+}
+.overlay__card {
+  width: min(100%, 360px); text-align: center; padding: 22px 20px; border-radius: 20px;
+  background: var(--surface); border: 2px solid var(--accent); box-shadow: var(--shadow);
+  animation: pop 0.22s ease-out;
+}
+.overlay__icon { font-size: 2.6rem; line-height: 1; }
+.overlay__card h2 { margin: 8px 0 4px; letter-spacing: 0.08em; text-transform: uppercase; }
+.overlay__card p { margin: 0 0 16px; color: var(--muted); font-size: 0.9rem; white-space: pre-line; }
+.overlay__actions { display: grid; gap: 8px; }
+@keyframes pop { from { opacity: 0; transform: scale(0.92); } }
+
+.countdown {
+  position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; pointer-events: none;
+  font-size: clamp(4rem, 18vw, 8rem); font-weight: 900; color: #fff; text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+}
+.countdown b { animation: count 0.9s ease-out; }
+@keyframes count { from { transform: scale(1.8); opacity: 0; } 30% { opacity: 1; } to { transform: scale(0.9); opacity: 0.2; } }
+
+.controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+.hint { text-align: center; color: var(--muted); font-size: 0.75rem; margin: 12px 0 0; }
+
+.dpad {
+  display: none; position: relative; width: 190px; height: 190px; margin: 18px auto 0;
+}
+.dpad__btn {
+  position: absolute; width: 30%; height: 30%; border-radius: 16px; cursor: pointer; font-size: 1.3rem;
+  background: var(--surface-2); border: 2px solid var(--border); touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.dpad__btn:active { background: var(--accent); color: var(--accent-ink); }
+.dpad__up { left: 35%; top: 0; }
+.dpad__down { left: 35%; bottom: 0; }
+.dpad__left { left: 0; top: 35%; }
+.dpad__right { right: 0; top: 35%; }
+@media (pointer: coarse) { .dpad { display: block; } .hint { display: none; } }
+
+@media (max-width: 560px) {
+  .hud { gap: 8px 14px; padding: 10px 12px; }
+  .hud__title { flex-basis: 100%; }
+  .hud__stat { align-items: flex-start; }
+  .board-wrap { padding: 6px; }
+}
