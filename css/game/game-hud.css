@@ -1,0 +1,193 @@
+/* =========================================================
+   Nokia Snake V2 — Game HUD
+   File: css/game/game-hud.css
+   ========================================================= */
+
+/* Main HUD container */
+
+.game-hud {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-md, 1rem);
+
+  width: 100%;
+  min-width: 0;
+  margin-block: var(--space-md, 1rem);
+}
+
+/* Individual HUD item */
+
+.game-hud__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.35rem;
+
+  min-width: 0;
+  padding: var(--space-md, 1rem);
+
+  border: 1px solid var(--color-border, #354238);
+  border-radius: var(--radius-md, 10px);
+
+  background: var(--color-surface, #172019);
+}
+
+/* HUD labels */
+
+.game-hud__label {
+  color: var(--color-text-muted, #a5b0a4);
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+/* HUD values */
+
+.game-hud__value {
+  color: var(--color-text, #f2f5ed);
+
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  font-weight: 950;
+  line-height: 1.3;
+
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+/* Highlighted score */
+
+.game-hud__item--score .game-hud__value {
+  color: var(--color-nokia-primary, #b9ff66);
+}
+
+/* Personal best */
+
+.game-hud__item--record .game-hud__value {
+  color: var(--color-neon-cyan, #65eaff);
+}
+
+/* Level indicator */
+
+.game-hud__item--level .game-hud__value {
+  color: var(--color-neon-pink, #ff65c3);
+}
+
+/* Secondary information row */
+
+.game-hud__secondary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm, 0.5rem);
+
+  width: 100%;
+  min-width: 0;
+  margin-top: var(--space-sm, 0.5rem);
+}
+
+/* Secondary stat */
+
+.game-hud__stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  min-width: 0;
+
+  color: var(--color-text-muted, #a5b0a4);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.game-hud__stat-value {
+  color: var(--color-text, #f2f5ed);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Speed indicator */
+
+.game-hud__speed {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.game-hud__speed-indicator {
+  display: inline-block;
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+  background: var(--color-success, #8ee59a);
+}
+
+.game-hud__speed--fast .game-hud__speed-indicator {
+  background: var(--color-danger, #ff6b6b);
+}
+
+/* Timer warning */
+
+.game-hud__timer--warning {
+  color: var(--color-danger, #ff6b6b);
+}
+
+/* Compact layout */
+
+.game-hud--compact {
+  gap: var(--space-sm, 0.5rem);
+}
+
+.game-hud--compact .game-hud__item {
+  padding: var(--space-sm, 0.5rem);
+}
+
+/* HUD inside a game panel */
+
+.game-panel .game-hud {
+  margin-top: 0;
+}
+
+/* Responsive */
+
+@media (max-width: 560px) {
+  .game-hud {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-sm, 0.5rem);
+  }
+
+  .game-hud__item {
+    padding: var(--space-sm, 0.5rem);
+  }
+
+  .game-hud__label {
+    font-size: 0.7rem;
+  }
+
+  .game-hud__value {
+    font-size: 1.05rem;
+  }
+
+  .game-hud__secondary {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 360px) {
+  .game-hud {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .game-hud *,
+  .game-hud *::before,
+  .game-hud *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

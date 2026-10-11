@@ -1,0 +1,326 @@
+/* =========================================================
+   Nokia Snake V2 — World Introduction
+   File: css/animations/world-intro.css
+   ========================================================= */
+
+.world-intro {
+  position: absolute;
+  inset: 0;
+  z-index: 70;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+  padding: 1.5rem;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgb(39 64 44 / 78%) 0%,
+      rgb(10 15 12 / 96%) 72%
+    );
+
+  color: #f2f7e9;
+  text-align: center;
+
+  opacity: 1;
+  visibility: visible;
+  pointer-events: none;
+}
+
+.world-intro[hidden] {
+  display: none;
+}
+
+.world-intro.is-entering {
+  animation: world-intro-enter 700ms ease-out both;
+}
+
+.world-intro.is-leaving {
+  animation: world-intro-leave 500ms ease-in both;
+}
+
+.world-intro__content {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+
+  width: min(100%, 560px);
+}
+
+.world-intro__eyebrow {
+  margin: 0;
+
+  color: var(--color-neon-cyan, #54e5ed);
+  font-family: var(--font-display, monospace);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+
+  animation: world-text-reveal 550ms 150ms both;
+}
+
+.world-intro__icon {
+  display: grid;
+  place-items: center;
+
+  width: clamp(76px, 18vw, 120px);
+  aspect-ratio: 1;
+
+  border: 1px solid rgb(184 240 120 / 50%);
+  border-radius: 28px;
+
+  background: rgb(184 240 120 / 8%);
+  color: var(--color-focus, #b8f078);
+
+  font-size: clamp(2.5rem, 9vw, 4.5rem);
+
+  box-shadow:
+    0 0 24px rgb(184 240 120 / 12%),
+    inset 0 0 24px rgb(184 240 120 / 5%);
+
+  animation: world-icon-reveal 850ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.world-intro__title {
+  margin: 0;
+
+  color: #ffffff;
+  font-family: var(--font-display, monospace);
+  font-size: clamp(1.8rem, 7vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+
+  text-shadow:
+    0 0 18px rgb(184 240 120 / 24%);
+
+  animation: world-title-reveal 750ms 180ms both;
+}
+
+.world-intro__subtitle {
+  max-width: 38ch;
+  margin: 0;
+
+  color: #c5d1bc;
+  font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+  line-height: 1.8;
+
+  animation: world-text-reveal 600ms 350ms both;
+}
+
+.world-intro__rule {
+  width: min(220px, 65%);
+  height: 2px;
+
+  margin: 0.35rem 0;
+
+  border: 0;
+  border-radius: 999px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-focus, #b8f078),
+    var(--color-neon-cyan, #54e5ed),
+    transparent
+  );
+
+  animation: world-rule-reveal 700ms 250ms both;
+}
+
+.world-intro__details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+
+  animation: world-text-reveal 600ms 450ms both;
+}
+
+.world-intro__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 32px;
+  padding: 0.4rem 0.75rem;
+
+  border: 1px solid rgb(255 255 255 / 16%);
+  border-radius: 999px;
+
+  background: rgb(255 255 255 / 5%);
+  color: #e6efdf;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* Decorative background glow */
+
+.world-intro::before,
+.world-intro::after {
+  position: absolute;
+  inset: 15% -20%;
+
+  content: "";
+  pointer-events: none;
+}
+
+.world-intro::before {
+  border: 1px solid rgb(184 240 120 / 8%);
+  border-radius: 50%;
+
+  transform: rotate(-18deg) scale(0.8);
+  animation: world-ring-pulse 5s ease-in-out infinite;
+}
+
+.world-intro::after {
+  background: radial-gradient(
+    ellipse at center,
+    rgb(84 229 237 / 7%),
+    transparent 65%
+  );
+}
+
+/* Entrance and exit */
+
+@keyframes world-intro-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes world-intro-leave {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes world-icon-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.65) rotate(-8deg);
+  }
+
+  65% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.06) rotate(2deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0);
+  }
+}
+
+@keyframes world-title-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    letter-spacing: 0.12em;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: normal;
+  }
+}
+
+@keyframes world-text-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes world-rule-reveal {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes world-ring-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: rotate(-18deg) scale(0.8);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: rotate(-12deg) scale(1);
+  }
+}
+
+/* Small screens */
+
+@media (max-width: 480px) {
+  .world-intro {
+    padding: 1rem;
+  }
+
+  .world-intro__content {
+    gap: 0.75rem;
+  }
+
+  .world-intro__eyebrow {
+    letter-spacing: 0.2em;
+  }
+
+  .world-intro__badge {
+    font-size: 0.75rem;
+  }
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  .world-intro,
+  .world-intro *,
+  .world-intro::before,
+  .world-intro::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .world-intro.is-leaving {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .world-intro__icon,
+  .world-intro__title,
+  .world-intro__subtitle,
+  .world-intro__eyebrow,
+  .world-intro__details {
+    opacity: 1;
+    transform: none;
+  }
+}

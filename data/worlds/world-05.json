@@ -1,0 +1,51 @@
+{
+  "id": "nokia-legend",
+  "order": 5,
+  "name": "Nokia Legend",
+  "subtitle": "Legends never stop growing.",
+  "description": "Return to the classic Nokia era for the ultimate Snake challenge. Master every turn, survive the final stages, and become a true Snake legend.",
+  "theme": "nokia-legend",
+  "visualStyle": {
+    "background": "#101810",
+    "board": "#c7d4a0",
+    "snake": "#263c25",
+    "food": "#8b2e24",
+    "grid": "#b3c28b",
+    "effects": "classic-pixel"
+  },
+  "gameplay": {
+    "defaultMode": "challenge",
+    "difficulty": "legendary",
+    "boardColumns": 20,
+    "boardRows": 20,
+    "initialSnakeLength": 5,
+    "initialSpeed": 12,
+    "maximumSpeed": 20,
+    "foodPoints": 30,
+    "startingLives": 1,
+    "obstaclesEnabled": true,
+    "initialObstacleCount": 10,
+    "obstaclePattern": "classic-challenge",
+    "powerUpsEnabled": false,
+    "wrapAround": false
+  },
+  "progression": {
+    "firstLevel": 41,
+    "lastLevel": 50,
+    "requiredScoreToUnlockNextWorld": null,
+    "unlockCondition": {
+      "type": "world_completed",
+      "worldId": "nokia-legend"
+    }
+  },
+  "audio": {
+    "musicEnabled": false,
+    "soundEffectsEnabled": true,
+    "musicTrack": null
+  },
+  "availability": {
+    "unlockedByDefault": false,
+    "requiresPreviousWorld": true,
+    "requiredWorldId": "neon-overdrive"
+  }
+}

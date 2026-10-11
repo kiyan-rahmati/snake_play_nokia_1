@@ -1,0 +1,122 @@
+/* =========================================================
+   Nokia Snake V2 — Obstacles
+   File: css/game/obstacles.css
+   ========================================================= */
+
+/* Obstacles container */
+
+.obstacles {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+  contain: layout style;
+}
+
+.obstacle {
+  position: absolute;
+
+  width: var(--obstacle-cell-width, 5%);
+  height: var(--obstacle-cell-height, 5%);
+
+  box-sizing: border-box;
+  overflow: hidden;
+
+  background: var(--obstacle-color, #344b30);
+  border: 1px solid rgb(0 0 0 / 25%);
+}
+
+/* Classic block */
+
+.obstacle--block {
+  background: #344b30;
+  border-color: #263a24;
+  border-radius: 1px;
+}
+
+/* Stone obstacle */
+
+.obstacle--stone {
+  background: #687267;
+  border: 2px solid #424b42;
+  border-radius: 2px;
+}
+
+.obstacle--stone::after {
+  content: "";
+  position: absolute;
+  inset: 25%;
+
+  border: 1px solid rgb(255 255 255 / 15%);
+}
+
+/* Wall obstacle */
+
+.obstacle--wall {
+  background: var(--color-nokia-dark, #172117);
+  border: 1px solid rgb(255 255 255 / 10%);
+}
+
+/* Neon obstacle */
+
+.obstacle--neon {
+  background: #173e48;
+  border: 1px solid var(--color-neon-cyan, #65eaff);
+}
+
+/* Hazard obstacle */
+
+.obstacle--hazard {
+  background: #642d3b;
+  border: 1px solid var(--color-danger, #ff6b6b);
+}
+
+/* Moving obstacle state */
+
+.obstacle.is-moving {
+  will-change: transform;
+}
+
+/* Damaged or temporary obstacle */
+
+.obstacle.is-damaged {
+  opacity: 0.65;
+}
+
+.obstacle.is-temporary {
+  border-style: dashed;
+}
+
+/* World theme variants */
+
+.obstacles--classic {
+  --obstacle-color: #344b30;
+}
+
+.obstacles--pixel {
+  --obstacle-color: #6a2f73;
+}
+
+.obstacles--maze {
+  --obstacle-color: #65543b;
+}
+
+.obstacles--neon {
+  --obstacle-color: #173e48;
+}
+
+/* Board state */
+
+.game-board.is-paused .obstacles {
+  opacity: 0.85;
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .obstacle.is-moving {
+    will-change: auto;
+    animation: none !important;
+    transition: none !important;
+  }
+}

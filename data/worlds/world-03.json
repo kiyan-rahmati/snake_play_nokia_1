@@ -1,0 +1,51 @@
+{
+  "id": "snake-maze",
+  "order": 3,
+  "name": "Snake Maze",
+  "subtitle": "Find your way out.",
+  "description": "Navigate tricky corridors, avoid obstacles, and plan every turn before the maze traps you.",
+  "theme": "snake-maze",
+  "visualStyle": {
+    "background": "#171c28",
+    "board": "#202a3b",
+    "snake": "#a6e3a1",
+    "food": "#f9e2af",
+    "grid": "#35445a",
+    "effects": "maze"
+  },
+  "gameplay": {
+    "defaultMode": "challenge",
+    "difficulty": "hard",
+    "boardColumns": 20,
+    "boardRows": 20,
+    "initialSnakeLength": 3,
+    "initialSpeed": 7,
+    "maximumSpeed": 15,
+    "foodPoints": 20,
+    "startingLives": 3,
+    "obstaclesEnabled": true,
+    "initialObstacleCount": 8,
+    "obstaclePattern": "corridors",
+    "powerUpsEnabled": true,
+    "wrapAround": false
+  },
+  "progression": {
+    "firstLevel": 21,
+    "lastLevel": 30,
+    "requiredScoreToUnlockNextWorld": 2000,
+    "unlockCondition": {
+      "type": "world_completed",
+      "worldId": "snake-maze"
+    }
+  },
+  "audio": {
+    "musicEnabled": false,
+    "soundEffectsEnabled": true,
+    "musicTrack": null
+  },
+  "availability": {
+    "unlockedByDefault": false,
+    "requiresPreviousWorld": true,
+    "requiredWorldId": "pixel-rush"
+  }
+}

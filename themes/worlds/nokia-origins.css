@@ -1,0 +1,252 @@
+/* =========================================================
+   Nokia Origins — Classic Nokia Snake World
+   ========================================================= */
+
+[data-world="nokia-origins"],
+.world-nokia-origins {
+  --world-primary: #8bac0f;
+  --world-primary-dark: #306230;
+  --world-secondary: #9bbc0f;
+  --world-accent: #0f380f;
+
+  --world-background: #0f380f;
+  --world-surface: #306230;
+  --world-surface-light: #8bac0f;
+
+  --world-text: #0f380f;
+  --world-text-light: #9bbc0f;
+  --world-border: rgba(155, 188, 15, 0.45);
+
+  --world-glow: rgba(155, 188, 15, 0.25);
+  --world-shadow: rgba(0, 0, 0, 0.35);
+
+  --world-pixel-size: 4px;
+  --world-transition-duration: 250ms;
+
+  color: var(--world-text-light);
+  background-color: var(--world-background);
+  font-family: "Courier New", monospace;
+  image-rendering: pixelated;
+}
+
+/* Classic monochrome LCD background */
+
+[data-world="nokia-origins"] .game-board,
+.world-nokia-origins .game-board {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  background-color: #9bbc0f;
+  border: 4px solid #306230;
+  border-radius: 4px;
+
+  box-shadow:
+    inset 0 0 0 2px rgba(15, 56, 15, 0.2),
+    0 8px 0 rgba(15, 56, 15, 0.25),
+    0 12px 28px var(--world-shadow);
+
+  image-rendering: pixelated;
+}
+
+/* Subtle LCD pixel texture */
+
+[data-world="nokia-origins"] .game-board::before,
+.world-nokia-origins .game-board::before {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+
+  content: "";
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(15, 56, 15, 0.055) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(15, 56, 15, 0.055) 1px,
+      transparent 1px
+    );
+
+  background-size: 4px 4px;
+}
+
+/* Classic snake colors */
+
+[data-world="nokia-origins"] .snake-segment,
+.world-nokia-origins .snake-segment {
+  background-color: #306230;
+  border: 1px solid rgba(15, 56, 15, 0.35);
+  border-radius: 0;
+
+  box-shadow: none;
+  image-rendering: pixelated;
+}
+
+[data-world="nokia-origins"] .snake-head,
+.world-nokia-origins .snake-head {
+  background-color: #0f380f;
+  border: 1px solid #0f380f;
+  border-radius: 0;
+
+  box-shadow: none;
+}
+
+/* Traditional pixel food */
+
+[data-world="nokia-origins"] .food,
+.world-nokia-origins .food {
+  background-color: #0f380f;
+  border: 2px solid #306230;
+  border-radius: 0;
+
+  box-shadow: none;
+  animation: nokia-food-blink 1s steps(2, end) infinite;
+}
+
+/* Obstacles use the darkest LCD shade */
+
+[data-world="nokia-origins"] .obstacle,
+.world-nokia-origins .obstacle {
+  background-color: #0f380f;
+  border: 1px solid #306230;
+  border-radius: 0;
+
+  box-shadow: none;
+}
+
+/* HUD and classic digital counters */
+
+[data-world="nokia-origins"] .game-hud,
+.world-nokia-origins .game-hud {
+  color: #9bbc0f;
+  background-color: #0f380f;
+  border: 2px solid #306230;
+  border-radius: 3px;
+
+  font-family: "Courier New", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+[data-world="nokia-origins"] .score-value,
+[data-world="nokia-origins"] .level-value,
+[data-world="nokia-origins"] .lives-value,
+.world-nokia-origins .score-value,
+.world-nokia-origins .level-value,
+.world-nokia-origins .lives-value {
+  color: #9bbc0f;
+  font-weight: 700;
+  text-shadow: 0 0 4px var(--world-glow);
+}
+
+/* Classic Nokia-inspired buttons */
+
+[data-world="nokia-origins"] .button,
+[data-world="nokia-origins"] .btn,
+.world-nokia-origins .button,
+.world-nokia-origins .btn {
+  color: #9bbc0f;
+  background-color: #306230;
+  border: 2px solid #8bac0f;
+  border-radius: 3px;
+
+  box-shadow: 0 3px 0 #0f380f;
+  font-family: "Courier New", monospace;
+
+  transition:
+    background-color var(--world-transition-duration) ease,
+    color var(--world-transition-duration) ease,
+    transform 120ms ease;
+}
+
+[data-world="nokia-origins"] .button:hover,
+[data-world="nokia-origins"] .btn:hover,
+.world-nokia-origins .button:hover,
+.world-nokia-origins .btn:hover {
+  color: #0f380f;
+  background-color: #9bbc0f;
+}
+
+[data-world="nokia-origins"] .button:active,
+[data-world="nokia-origins"] .btn:active,
+.world-nokia-origins .button:active,
+.world-nokia-origins .btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #0f380f;
+}
+
+/* Panels and cards */
+
+[data-world="nokia-origins"] .card,
+[data-world="nokia-origins"] .panel,
+.world-nokia-origins .card,
+.world-nokia-origins .panel {
+  color: #9bbc0f;
+  background-color: #306230;
+  border: 2px solid #8bac0f;
+  border-radius: 4px;
+
+  box-shadow: 0 4px 0 rgba(15, 56, 15, 0.35);
+}
+
+/* World title */
+
+[data-world="nokia-origins"] .world-title,
+.world-nokia-origins .world-title {
+  color: #9bbc0f;
+  font-family: "Courier New", monospace;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  text-shadow:
+    2px 2px 0 #306230,
+    4px 4px 0 rgba(15, 56, 15, 0.4);
+}
+
+/* Classic LCD loading indicator */
+
+[data-world="nokia-origins"] .loading-indicator,
+.world-nokia-origins .loading-indicator {
+  color: #9bbc0f;
+  background-color: #0f380f;
+  border: 2px solid #8bac0f;
+  border-radius: 3px;
+}
+
+/* Keyboard focus */
+
+[data-world="nokia-origins"] :focus-visible,
+.world-nokia-origins :focus-visible {
+  outline: 3px solid #9bbc0f;
+  outline-offset: 3px;
+}
+
+/* Food blinking animation */
+
+@keyframes nokia-food-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0.65;
+  }
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-world="nokia-origins"] *,
+  .world-nokia-origins * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

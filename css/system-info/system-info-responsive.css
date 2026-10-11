@@ -1,0 +1,127 @@
+/* =========================================================
+   Nokia Snake V2 — System Info Responsive
+   File: css/system-info/system-info-responsive.css
+   ========================================================= */
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .system-info-panel {
+    gap: var(--space-md, 1rem);
+  }
+
+  .system-info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .system-info-item {
+    padding: var(--space-sm, 0.75rem);
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .system-info-panel {
+    padding: var(--space-md, 1rem);
+    border-radius: var(--radius-md, 10px);
+  }
+
+  .system-info-panel__header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: var(--space-sm, 0.5rem);
+  }
+
+  .system-info-panel__title {
+    font-size: 1.05rem;
+  }
+
+  .system-info-panel__description {
+    font-size: 0.8rem;
+  }
+
+  .system-info-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-sm, 0.5rem);
+  }
+
+  .system-info-item {
+    display: grid;
+    grid-template-columns: minmax(100px, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+    gap: var(--space-sm, 0.5rem);
+  }
+
+  .system-info-item__label,
+  .system-info-item__value {
+    min-width: 0;
+  }
+
+  .system-info-panel__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .system-info-panel__actions button,
+  .system-info-panel__actions a {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Very small screens */
+
+@media (max-width: 360px) {
+  .system-info-panel {
+    padding: var(--space-sm, 0.75rem);
+  }
+
+  .system-info-item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+  }
+
+  .system-info-item__value {
+    font-size: 0.85rem;
+  }
+
+  .system-info-panel__privacy {
+    padding: var(--space-sm, 0.75rem);
+    font-size: 0.75rem;
+  }
+}
+
+/* Landscape mobile */
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .system-info-panel {
+    gap: var(--space-sm, 0.5rem);
+  }
+
+  .system-info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Accessibility: allow content to reflow at high zoom */
+
+@media (min-width: 320px) {
+  .system-info-panel,
+  .system-info-group,
+  .system-info-item {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .system-info-panel,
+  .system-info-panel * {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -1,0 +1,254 @@
+/* =========================================================
+   Nokia Snake V2 — Gameplay Effects
+   File: css/animations/game-effects.css
+   ========================================================= */
+
+/* Food collection */
+
+.food.is-collected {
+  animation: food-collect 220ms ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes food-collect {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  60% {
+    opacity: 0.8;
+    transform: scale(1.6) rotate(25deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+/* Score popup */
+
+.score-popup {
+  position: absolute;
+  z-index: 20;
+
+  color: var(--color-success, #8fe39b);
+  font-family: var(--font-display, monospace);
+  font-size: 1.1rem;
+  font-weight: 900;
+  line-height: 1;
+
+  pointer-events: none;
+  white-space: nowrap;
+
+  text-shadow: 0 2px 8px rgb(0 0 0 / 30%);
+
+  animation: score-popup-rise 750ms ease-out forwards;
+}
+
+@keyframes score-popup-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.75);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translateY(0) scale(1.1);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translateY(-22px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-38px) scale(0.9);
+  }
+}
+
+/* Score counter pulse */
+
+.score-value.is-updating {
+  animation: score-pulse 250ms ease-out;
+}
+
+@keyframes score-pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.22);
+    color: var(--color-success, #8fe39b);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Snake growth feedback */
+
+.snake.is-growing {
+  animation: snake-growth-flash 220ms ease-out;
+}
+
+@keyframes snake-growth-flash {
+  0% {
+    filter: brightness(1);
+  }
+
+  45% {
+    filter: brightness(1.7);
+  }
+
+  100% {
+    filter: brightness(1);
+  }
+}
+
+/* Collision feedback */
+
+.game-board.is-collision {
+  animation: board-collision 280ms ease-out;
+}
+
+@keyframes board-collision {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-4px);
+  }
+
+  40% {
+    transform: translateX(4px);
+  }
+
+  60% {
+    transform: translateX(-3px);
+  }
+
+  80% {
+    transform: translateX(2px);
+  }
+}
+
+/* Temporary status message */
+
+.game-effect-message {
+  position: absolute;
+  inset-inline: 1rem;
+  top: 12%;
+
+  z-index: 30;
+
+  width: fit-content;
+  max-width: calc(100% - 2rem);
+  margin-inline: auto;
+  padding: 0.65rem 1rem;
+
+  border: 1px solid var(--color-border, #394737);
+  border-radius: var(--radius-md, 10px);
+
+  background: var(--color-surface-raised, #232e24);
+  color: var(--color-text, #edf5e8);
+
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-align: center;
+
+  box-shadow: var(--shadow-md, 0 8px 24px rgb(0 0 0 / 30%));
+
+  pointer-events: none;
+  animation: effect-message 1.4s ease both;
+}
+
+.game-effect-message[hidden] {
+  display: none;
+}
+
+@keyframes effect-message {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+
+  12% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+
+/* Power-up activation */
+
+.power-up-effect {
+  position: absolute;
+  inset: 0;
+
+  z-index: 15;
+
+  border: 2px solid var(--color-neon-cyan, #54e5ed);
+  border-radius: inherit;
+
+  box-shadow:
+    inset 0 0 24px rgb(84 229 237 / 18%),
+    0 0 20px rgb(84 229 237 / 20%);
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+.power-up-effect.is-active {
+  animation: power-up-flash 500ms ease-out;
+}
+
+@keyframes power-up-flash {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  35% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+}
+
+/* Accessibility: reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .food.is-collected,
+  .score-popup,
+  .score-value.is-updating,
+  .snake.is-growing,
+  .game-board.is-collision,
+  .game-effect-message,
+  .power-up-effect.is-active {
+    animation: none !important;
+  }
+
+  .score-popup {
+    opacity: 1;
+    transform: none;
+  }
+}

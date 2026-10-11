@@ -1,0 +1,335 @@
+/* =========================================================
+   Nokia Snake V2 — Cassette Player
+   File: css/audio/cassette-player.css
+   Visual styles only — audio functionality comes later.
+   ========================================================= */
+
+.cassette-player {
+  --cassette-body: #24272a;
+  --cassette-detail: #41464a;
+  --cassette-label: #e7dfc8;
+  --cassette-accent: var(--color-nokia-primary, #b9ff66);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md, 1rem);
+
+  width: 100%;
+  max-width: 440px;
+  min-width: 0;
+  margin-inline: auto;
+  padding: var(--space-lg, 1.25rem);
+
+  border: 1px solid var(--color-border, #354238);
+  border-radius: var(--radius-lg, 16px);
+
+  background: var(--color-surface, #172019);
+  color: var(--color-text, #f2f5ed);
+}
+
+/* Header */
+
+.cassette-player__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm, 0.5rem);
+}
+
+.cassette-player__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.cassette-player__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  color: var(--color-text-muted, #a5b0a4);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.cassette-player__status::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+
+  border-radius: 50%;
+  background: var(--color-text-muted, #a5b0a4);
+}
+
+.cassette-player__status.is-ready::before {
+  background: var(--color-success, #8ee59a);
+}
+
+/* Cassette body */
+
+.cassette {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  width: 100%;
+  min-width: 0;
+  padding: 1rem;
+
+  border: 2px solid #17191b;
+  border-radius: 10px;
+
+  background: var(--cassette-body);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 8%),
+    0 5px 12px rgb(0 0 0 / 20%);
+}
+
+.cassette__label {
+  padding: 0.6rem 0.7rem;
+
+  border: 1px solid #c9c0a8;
+  border-radius: 4px;
+
+  background: var(--cassette-label);
+  color: #242720;
+}
+
+.cassette__name {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 950;
+  overflow-wrap: anywhere;
+}
+
+.cassette__subtitle {
+  margin: 0.25rem 0 0;
+  color: #515449;
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+/* Tape window */
+
+.cassette__window {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 1rem;
+
+  min-height: 86px;
+  padding: 0.8rem;
+
+  border: 2px solid #111314;
+  border-radius: 6px;
+
+  background: #181a1b;
+  box-shadow: inset 0 0 8px rgb(0 0 0 / 60%);
+}
+
+.cassette__reel {
+  position: relative;
+  display: grid;
+  place-items: center;
+
+  width: 54px;
+  height: 54px;
+  justify-self: center;
+
+  border: 5px solid #858780;
+  border-radius: 50%;
+
+  background: #d1cbb7;
+  box-shadow: inset 0 0 0 3px #393b38;
+}
+
+.cassette__reel::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+
+  border: 3px dotted #444740;
+  border-radius: 50%;
+}
+
+.cassette__reel::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+
+  border: 2px solid #444740;
+  border-radius: 50%;
+
+  background: #242724;
+}
+
+/* Tape strip */
+
+.cassette__tape {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  right: 25%;
+
+  height: 4px;
+  transform: translateY(-50%);
+
+  background: #c5bda5;
+  pointer-events: none;
+}
+
+/* Player controls */
+
+.cassette-player__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm, 0.5rem);
+}
+
+.cassette-player__button {
+  display: grid;
+  place-items: center;
+
+  min-width: var(--touch-target-min-size, 44px);
+  min-height: var(--touch-target-min-size, 44px);
+  padding: 0.6rem;
+
+  border: 1px solid var(--color-border, #354238);
+  border-radius: var(--radius-md, 10px);
+
+  background: var(--color-surface-raised, #202b22);
+  color: var(--color-text, #f2f5ed);
+
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 900;
+
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.cassette-player__button:hover {
+  border-color: var(--cassette-accent);
+}
+
+.cassette-player__button:focus-visible {
+  outline: var(--focus-ring-width, 3px) solid var(--color-focus, #b9ff66);
+  outline-offset: 3px;
+}
+
+.cassette-player__button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.cassette-player__button--primary {
+  border-color: var(--cassette-accent);
+  background: var(--cassette-accent);
+  color: var(--color-nokia-dark, #101810);
+}
+
+/* Track information */
+
+.cassette-player__track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.cassette-player__track-name {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.cassette-player__track-meta {
+  margin: 0;
+  color: var(--color-text-muted, #a5b0a4);
+  font-size: 0.75rem;
+}
+
+/* Progress bar */
+
+.cassette-player__progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cassette-player__progress-track {
+  width: 100%;
+  height: 6px;
+  overflow: hidden;
+
+  border-radius: 999px;
+  background: var(--color-background, #101810);
+}
+
+.cassette-player__progress-bar {
+  width: 0;
+  height: 100%;
+
+  border-radius: inherit;
+  background: var(--cassette-accent);
+}
+
+.cassette-player__time {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+
+  color: var(--color-text-muted, #a5b0a4);
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Visual playing state — no audio is started by this CSS */
+
+.cassette-player.is-playing .cassette__reel {
+  border-color: var(--cassette-accent);
+}
+
+.cassette-player.is-playing .cassette-player__status::before {
+  background: var(--color-success, #8ee59a);
+}
+
+/* Responsive */
+
+@media (max-width: 420px) {
+  .cassette-player {
+    padding: var(--space-md, 1rem);
+  }
+
+  .cassette {
+    padding: 0.75rem;
+  }
+
+  .cassette__window {
+    min-height: 72px;
+    gap: 0.5rem;
+  }
+
+  .cassette__reel {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .cassette-player *,
+  .cassette-player *::before,
+  .cassette-player *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

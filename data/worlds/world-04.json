@@ -1,0 +1,51 @@
+{
+  "id": "neon-overdrive",
+  "order": 4,
+  "name": "Neon Overdrive",
+  "subtitle": "No brakes. No limits.",
+  "description": "Race through a futuristic neon arena where every second matters and every mistake can end your run.",
+  "theme": "neon-overdrive",
+  "visualStyle": {
+    "background": "#090b1a",
+    "board": "#11152b",
+    "snake": "#00f5d4",
+    "food": "#ff3cac",
+    "grid": "#252b50",
+    "effects": "neon"
+  },
+  "gameplay": {
+    "defaultMode": "endless",
+    "difficulty": "expert",
+    "boardColumns": 20,
+    "boardRows": 20,
+    "initialSnakeLength": 4,
+    "initialSpeed": 11,
+    "maximumSpeed": 20,
+    "foodPoints": 25,
+    "startingLives": 2,
+    "obstaclesEnabled": true,
+    "initialObstacleCount": 6,
+    "obstaclePattern": "neon-gates",
+    "powerUpsEnabled": true,
+    "wrapAround": true
+  },
+  "progression": {
+    "firstLevel": 31,
+    "lastLevel": 40,
+    "requiredScoreToUnlockNextWorld": 3000,
+    "unlockCondition": {
+      "type": "world_completed",
+      "worldId": "neon-overdrive"
+    }
+  },
+  "audio": {
+    "musicEnabled": false,
+    "soundEffectsEnabled": true,
+    "musicTrack": null
+  },
+  "availability": {
+    "unlockedByDefault": false,
+    "requiresPreviousWorld": true,
+    "requiredWorldId": "snake-maze"
+  }
+}

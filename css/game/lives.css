@@ -1,0 +1,134 @@
+/* =========================================================
+   Nokia Snake V2 — Lives Display
+   File: css/game/lives.css
+   ========================================================= */
+
+.game-lives {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm, 0.5rem);
+
+  min-width: 0;
+}
+
+.game-lives__label {
+  margin-right: 0.25rem;
+
+  color: var(--color-text-muted, #a5b0a4);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.game-lives__list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.game-lives__item {
+  display: grid;
+  place-items: center;
+
+  width: 28px;
+  height: 28px;
+
+  border: 1px solid var(--color-success, #8ee59a);
+  border-radius: var(--radius-sm, 6px);
+
+  background: rgb(142 229 154 / 10%);
+  color: var(--color-success, #8ee59a);
+
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.game-lives__item--lost {
+  border-color: var(--color-border, #354238);
+  background: var(--color-surface, #172019);
+  color: var(--color-text-muted, #a5b0a4);
+  opacity: 0.45;
+}
+
+.game-lives__item--extra {
+  border-color: var(--color-neon-cyan, #65eaff);
+  color: var(--color-neon-cyan, #65eaff);
+}
+
+.game-lives__count {
+  color: var(--color-text, #f2f5ed);
+  font-size: 0.9rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.game-lives__warning {
+  color: var(--color-danger, #ff6b6b);
+  font-weight: 800;
+}
+
+.game-lives--compact .game-lives__item {
+  width: 22px;
+  height: 22px;
+  font-size: 0.8rem;
+}
+
+.game-lives--compact .game-lives__list {
+  gap: 0.25rem;
+}
+
+/* Optional heart icon rendered with text or an icon font */
+
+.game-lives__heart {
+  display: inline-block;
+  color: var(--color-success, #8ee59a);
+  line-height: 1;
+}
+
+.game-lives__item--lost .game-lives__heart {
+  color: var(--color-text-muted, #a5b0a4);
+}
+
+/* Low-life state */
+
+.game-lives.is-low .game-lives__count {
+  color: var(--color-danger, #ff6b6b);
+}
+
+.game-lives.is-low .game-lives__item:not(.game-lives__item--lost) {
+  border-color: var(--color-danger, #ff6b6b);
+  color: var(--color-danger, #ff6b6b);
+}
+
+/* Responsive */
+
+@media (max-width: 480px) {
+  .game-lives {
+    gap: 0.35rem;
+  }
+
+  .game-lives__item {
+    width: 24px;
+    height: 24px;
+  }
+
+  .game-lives__label {
+    font-size: 0.75rem;
+  }
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .game-lives *,
+  .game-lives *::before,
+  .game-lives *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

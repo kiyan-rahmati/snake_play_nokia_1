@@ -1,0 +1,61 @@
+{
+  "profile": {
+    "enabled": true,
+    "allowGuestProfiles": true,
+    "defaultAvatar": "snake-classic",
+    "maximumProfiles": 5,
+    "rememberLastProfile": true
+  },
+  "username": {
+    "minimumLength": 3,
+    "maximumLength": 16,
+    "allowSpaces": false,
+    "allowNumbers": true,
+    "allowUnderscores": true,
+    "allowHyphens": true,
+    "caseSensitive": false,
+    "reservedNames": [
+      "admin",
+      "administrator",
+      "system",
+      "support",
+      "moderator",
+      "nokia",
+      "snake"
+    ]
+  },
+  "avatar": {
+    "allowSelection": true,
+    "allowCustomUpload": false,
+    "availableAvatars": [
+      "snake-classic",
+      "snake-pixel",
+      "snake-neon",
+      "snake-gold",
+      "snake-ghost",
+      "snake-retro"
+    ]
+  },
+  "statistics": {
+    "trackGamesPlayed": true,
+    "trackTotalScore": true,
+    "trackBestScore": true,
+    "trackFoodCollected": true,
+    "trackTimePlayed": true,
+    "trackLevelsCompleted": true,
+    "trackWorldsUnlocked": true,
+    "trackAchievements": true
+  },
+  "privacy": {
+    "storeProfileLocally": true,
+    "requireConsentForOptionalData": true,
+    "allowProfileReset": true,
+    "allowDataExport": true,
+    "allowDataDeletion": true
+  },
+  "validation": {
+    "trimWhitespace": true,
+    "rejectControlCharacters": true,
+    "preventDuplicateUsernames": true
+  }
+}

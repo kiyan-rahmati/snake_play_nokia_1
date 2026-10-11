@@ -1,0 +1,166 @@
+/* =========================================================
+   Nokia Snake V2 — Night Theme
+   File: css/themes/night.css
+   ========================================================= */
+
+[data-theme="night"],
+.theme-night {
+  color-scheme: dark;
+
+  --color-background: #101510;
+  --color-surface: #192119;
+  --color-surface-raised: #232e24;
+
+  --color-text: #edf5e8;
+  --color-text-muted: #a8b7a1;
+  --color-border: #394737;
+
+  --color-focus: #b8f078;
+
+  --color-nokia-dark: #172316;
+  --color-nokia-screen: #a6c17c;
+  --color-nokia-primary: #8eb85c;
+
+  --color-neon-cyan: #54e5ed;
+  --color-neon-pink: #ff70c8;
+
+  --color-danger: #ff7373;
+  --color-success: #8fe39b;
+
+  --shadow-sm: 0 2px 8px rgb(0 0 0 / 20%);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 30%);
+  --shadow-lg: 0 16px 44px rgb(0 0 0 / 40%);
+}
+
+/* Page background */
+
+[data-theme="night"] body,
+.theme-night body {
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+/* Application shell */
+
+[data-theme="night"] .app-shell,
+.theme-night .app-shell {
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+/* Shared cards and panels */
+
+[data-theme="night"] .card,
+[data-theme="night"] .game-hud__item,
+[data-theme="night"] .achievement-card,
+[data-theme="night"] .system-info-panel,
+.theme-night .card,
+.theme-night .game-hud__item,
+.theme-night .achievement-card,
+.theme-night .system-info-panel {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Raised surfaces */
+
+[data-theme="night"] .modal,
+[data-theme="night"] .dropdown,
+[data-theme="night"] .popover,
+.theme-night .modal,
+.theme-night .dropdown,
+.theme-night .popover {
+  background: var(--color-surface-raised);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+/* Primary buttons */
+
+[data-theme="night"] .button--primary,
+[data-theme="night"] .btn--primary,
+.theme-night .button--primary,
+.theme-night .btn--primary {
+  background: var(--color-nokia-primary);
+  border-color: var(--color-nokia-primary);
+  color: #10180c;
+}
+
+/* Secondary buttons */
+
+[data-theme="night"] .button--secondary,
+[data-theme="night"] .btn--secondary,
+.theme-night .button--secondary,
+.theme-night .btn--secondary {
+  background: var(--color-surface-raised);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+/* Classic Nokia game board */
+
+[data-theme="night"] .game-board,
+.theme-night .game-board {
+  background: var(--color-nokia-screen);
+  border-color: var(--color-nokia-primary);
+}
+
+/* Links */
+
+[data-theme="night"] a,
+.theme-night a {
+  color: var(--color-neon-cyan);
+}
+
+[data-theme="night"] a:hover,
+.theme-night a:hover {
+  color: var(--color-neon-pink);
+}
+
+/* Muted text */
+
+[data-theme="night"] .text-muted,
+.theme-night .text-muted {
+  color: var(--color-text-muted);
+}
+
+/* Form controls */
+
+[data-theme="night"] input,
+[data-theme="night"] select,
+[data-theme="night"] textarea,
+.theme-night input,
+.theme-night select,
+.theme-night textarea {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme="night"] input::placeholder,
+[data-theme="night"] textarea::placeholder,
+.theme-night input::placeholder,
+.theme-night textarea::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.85;
+}
+
+/* Keyboard focus */
+
+[data-theme="night"] :focus-visible,
+.theme-night :focus-visible {
+  outline-color: var(--color-focus);
+}
+
+/* High contrast preference */
+
+@media (prefers-contrast: more) {
+  [data-theme="night"],
+  .theme-night {
+    --color-border: #82917c;
+    --color-text-muted: #d0dcc9;
+    --color-focus: #e4ffb8;
+  }
+}

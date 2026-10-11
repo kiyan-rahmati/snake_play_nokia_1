@@ -1,0 +1,240 @@
+/* =========================================================
+   Nokia Snake V2 — Loading Screen
+   File: css/components/loading-screen.css
+   ========================================================= */
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg, 1.25rem);
+
+  padding: var(--space-lg, 1.25rem);
+
+  background: var(--color-background, #101810);
+  color: var(--color-text, #f2f5ed);
+
+  text-align: center;
+  transition:
+    opacity 250ms ease,
+    visibility 250ms ease;
+}
+
+.loading-screen[hidden],
+.loading-screen.is-hidden {
+  display: none !important;
+}
+
+.loading-screen.is-leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Brand */
+
+.loading-screen__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm, 0.5rem);
+}
+
+.loading-screen__logo {
+  display: grid;
+  place-items: center;
+
+  width: 76px;
+  height: 76px;
+
+  border: 2px solid var(--color-nokia-primary, #b9ff66);
+  border-radius: var(--radius-lg, 16px);
+
+  background: var(--color-nokia-dark, #101810);
+  color: var(--color-nokia-primary, #b9ff66);
+
+  font-size: 2.5rem;
+  font-weight: 900;
+
+  box-shadow: 0 0 24px rgba(185, 255, 102, 0.12);
+}
+
+.loading-screen__title {
+  margin: 0;
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.loading-screen__subtitle {
+  margin: 0;
+  color: var(--color-text-muted, #a5b0a4);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Retro pixel snake */
+
+.loading-screen__snake {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  min-height: 24px;
+}
+
+.loading-screen__snake span {
+  display: block;
+  width: 13px;
+  height: 13px;
+
+  border-radius: 2px;
+  background: var(--color-nokia-primary, #b9ff66);
+
+  animation: loading-snake-pulse 900ms ease-in-out infinite;
+}
+
+.loading-screen__snake span:nth-child(2) {
+  animation-delay: 100ms;
+}
+
+.loading-screen__snake span:nth-child(3) {
+  animation-delay: 200ms;
+}
+
+.loading-screen__snake span:nth-child(4) {
+  animation-delay: 300ms;
+}
+
+.loading-screen__snake span:nth-child(5) {
+  animation-delay: 400ms;
+}
+
+@keyframes loading-snake-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Progress bar */
+
+.loading-screen__progress {
+  width: min(280px, 80vw);
+  height: 8px;
+
+  border: 1px solid var(--color-border, #354238);
+  border-radius: 999px;
+
+  background: var(--color-surface, #172019);
+  overflow: hidden;
+}
+
+.loading-screen__progress-bar {
+  width: 0;
+  height: 100%;
+
+  border-radius: inherit;
+  background: var(--color-nokia-primary, #b9ff66);
+
+  transition: width 200ms ease;
+}
+
+.loading-screen__progress-bar.is-indeterminate {
+  width: 35%;
+  animation: loading-progress 1.2s ease-in-out infinite;
+}
+
+@keyframes loading-progress {
+  0% {
+    transform: translateX(-110%);
+  }
+
+  100% {
+    transform: translateX(310%);
+  }
+}
+
+/* Status text */
+
+.loading-screen__status {
+  min-height: 1.5em;
+  margin: 0;
+
+  color: var(--color-text-muted, #a5b0a4);
+  font-size: 0.85rem;
+}
+
+.loading-screen__status::after {
+  content: "";
+  display: inline-block;
+  width: 1.5em;
+  text-align: start;
+  animation: loading-dots 1.2s steps(4, end) infinite;
+}
+
+@keyframes loading-dots {
+  0% {
+    content: "";
+  }
+
+  25% {
+    content: ".";
+  }
+
+  50% {
+    content: "..";
+  }
+
+  75%,
+  100% {
+    content: "...";
+  }
+}
+
+/* Small screens */
+
+@media (max-width: 480px) {
+  .loading-screen__logo {
+    width: 64px;
+    height: 64px;
+    font-size: 2rem;
+  }
+
+  .loading-screen__snake span {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-screen,
+  .loading-screen__progress-bar {
+    transition: none;
+  }
+
+  .loading-screen__snake span,
+  .loading-screen__progress-bar.is-indeterminate,
+  .loading-screen__status::after {
+    animation: none;
+  }
+
+  .loading-screen__progress-bar.is-indeterminate {
+    width: 50%;
+    transform: none;
+  }
+}

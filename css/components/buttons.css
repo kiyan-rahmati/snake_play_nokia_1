@@ -1,0 +1,312 @@
+/* =========================================================
+   Nokia Snake V2 — Button Components
+   File: css/components/buttons.css
+   ========================================================= */
+
+.button,
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  min-height: var(--button-min-height, 44px);
+  padding: 0.7rem 1.1rem;
+
+  border: 1px solid var(--color-border, #354238);
+  border-radius: var(--radius-md, 10px);
+
+  background: var(--color-surface, #172019);
+  color: var(--color-text, #f2f5ed);
+
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    background-color var(--duration-fast, 150ms)
+      var(--easing-standard, ease),
+    color var(--duration-fast, 150ms)
+      var(--easing-standard, ease),
+    border-color var(--duration-fast, 150ms)
+      var(--easing-standard, ease),
+    box-shadow var(--duration-fast, 150ms)
+      var(--easing-standard, ease),
+    transform var(--duration-fast, 150ms)
+      var(--easing-standard, ease),
+    opacity var(--duration-fast, 150ms)
+      var(--easing-standard, ease);
+}
+
+/* Hover */
+
+.button:hover:not(:disabled):not([aria-disabled="true"]),
+.btn:hover:not(:disabled):not([aria-disabled="true"]) {
+  border-color: var(--color-nokia-primary, #b9ff66);
+  transform: translateY(-1px);
+}
+
+/* Active press */
+
+.button:active:not(:disabled):not([aria-disabled="true"]),
+.btn:active:not(:disabled):not([aria-disabled="true"]) {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* Keyboard focus */
+
+.button:focus-visible,
+.btn:focus-visible {
+  outline: var(--focus-ring-width, 3px) solid
+    var(--color-focus, #b9ff66);
+  outline-offset: 3px;
+}
+
+/* Primary button */
+
+.button--primary,
+.btn--primary {
+  border-color: var(--color-nokia-primary, #b9ff66);
+  background: var(--color-nokia-primary, #b9ff66);
+  color: var(--color-nokia-dark, #101810);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.button--primary:hover:not(:disabled),
+.btn--primary:hover:not(:disabled) {
+  border-color: var(--color-nokia-screen, #d9ffad);
+  background: var(--color-nokia-screen, #d9ffad);
+}
+
+/* Secondary button */
+
+.button--secondary,
+.btn--secondary {
+  border-color: var(--color-border, #354238);
+  background: var(--color-surface-raised, #222d24);
+  color: var(--color-text, #f2f5ed);
+}
+
+.button--secondary:hover:not(:disabled),
+.btn--secondary:hover:not(:disabled) {
+  background: var(--color-surface, #172019);
+}
+
+/* Ghost button */
+
+.button--ghost,
+.btn--ghost {
+  border-color: transparent;
+  background: transparent;
+  color: var(--color-text, #f2f5ed);
+  box-shadow: none;
+}
+
+.button--ghost:hover:not(:disabled),
+.btn--ghost:hover:not(:disabled) {
+  border-color: var(--color-border, #354238);
+  background: var(--color-surface, #172019);
+}
+
+/* Danger button */
+
+.button--danger,
+.btn--danger {
+  border-color: var(--color-danger, #ff5d6c);
+  background: var(--color-danger, #ff5d6c);
+  color: #ffffff;
+}
+
+.button--danger:hover:not(:disabled),
+.btn--danger:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+/* Success button */
+
+.button--success,
+.btn--success {
+  border-color: var(--color-success, #59d98e);
+  background: var(--color-success, #59d98e);
+  color: #101810;
+}
+
+/* Neon accent button */
+
+.button--neon,
+.btn--neon {
+  border-color: var(--color-neon-cyan, #53e7ff);
+  background: transparent;
+  color: var(--color-neon-cyan, #53e7ff);
+}
+
+.button--neon:hover:not(:disabled),
+.btn--neon:hover:not(:disabled) {
+  background: var(--color-neon-cyan, #53e7ff);
+  color: var(--color-nokia-dark, #101810);
+}
+
+/* Button sizes */
+
+.button--small,
+.btn--small {
+  min-height: 34px;
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-sm, 7px);
+  font-size: 0.875rem;
+}
+
+.button--large,
+.btn--large {
+  min-height: 52px;
+  padding: 0.9rem 1.5rem;
+  font-size: 1.05rem;
+}
+
+.button--block,
+.btn--block {
+  display: flex;
+  width: 100%;
+}
+
+/* Icon-only buttons */
+
+.button--icon,
+.btn--icon {
+  width: var(--touch-target-min-size, 44px);
+  min-width: var(--touch-target-min-size, 44px);
+  min-height: var(--touch-target-min-size, 44px);
+  padding: 0.5rem;
+  gap: 0;
+}
+
+.button--icon svg,
+.btn--icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 auto;
+}
+
+/* Button groups */
+
+.button-group,
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm, 0.5rem);
+}
+
+.button-group--center {
+  justify-content: center;
+}
+
+.button-group--end {
+  justify-content: flex-end;
+}
+
+.button-group--vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.button-group--vertical > .button,
+.button-group--vertical > .btn {
+  width: 100%;
+}
+
+/* Selected / toggle buttons */
+
+.button[aria-pressed="true"],
+.btn[aria-pressed="true"],
+.button.is-active,
+.btn.is-active {
+  border-color: var(--color-nokia-primary, #b9ff66);
+  background: var(--color-nokia-primary, #b9ff66);
+  color: var(--color-nokia-dark, #101810);
+}
+
+/* Disabled buttons */
+
+.button:disabled,
+.btn:disabled,
+.button[aria-disabled="true"],
+.btn[aria-disabled="true"] {
+  opacity: 0.48;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loading state */
+
+.button.is-loading,
+.btn.is-loading,
+.button[aria-busy="true"],
+.btn[aria-busy="true"] {
+  position: relative;
+  cursor: wait;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.button.is-loading::before,
+.btn.is-loading::before,
+.button[aria-busy="true"]::before,
+.btn[aria-busy="true"]::before {
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  content: "";
+  animation: button-spinner 650ms linear infinite;
+}
+
+@keyframes button-spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Compact layouts */
+
+@media (max-width: 480px) {
+  .button-group--mobile-stack {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .button-group--mobile-stack > .button,
+  .button-group--mobile-stack > .btn {
+    width: 100%;
+  }
+
+  .button--large,
+  .btn--large {
+    min-height: 48px;
+  }
+}
+
+/* Reduced motion accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .btn {
+    transition: none;
+  }
+
+  .button.is-loading::before,
+  .btn.is-loading::before,
+  .button[aria-busy="true"]::before,
+  .btn[aria-busy="true"]::before {
+    animation-duration: 1.5s;
+  }
+}
